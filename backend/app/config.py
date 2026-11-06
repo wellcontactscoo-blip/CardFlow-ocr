@@ -52,7 +52,11 @@ MAX_FILE_SIZE_MB = int(os.getenv("MAX_FILE_SIZE_MB", "10"))
 MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 MAX_CONCURRENT_OCR_WORKERS = int(os.getenv("MAX_CONCURRENT_OCR_WORKERS", "3"))
 OCR_LANGUAGE = os.getenv("OCR_LANGUAGE", "en")
-BACKEND_PUBLIC_URL = os.getenv("OCR_SERVICE_URL", "http://127.0.0.1:8000")
+BACKEND_PUBLIC_URL = (
+    os.getenv("OCR_SERVICE_URL")
+    or os.getenv("RENDER_EXTERNAL_URL")
+    or "http://127.0.0.1:8000"
+).rstrip("/")
 
 ALLOWED_MIME_TYPES = {
     "image/jpeg",

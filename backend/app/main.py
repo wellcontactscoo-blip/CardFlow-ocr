@@ -1,5 +1,8 @@
 import os
 import secrets
+import threading
+import time
+import urllib.request
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
 from typing import Any
@@ -146,11 +149,45 @@ def seed_default_admin_account() -> None:
         db.close()
 
 
+def start_self_keep_alive_daemon() -> None:
+    """
+    Background daemon thread that pings the public Render URL every 8 minutes
+    so Render's 15-minute idle timer is continually reset without relying solely on GitHub Actions.
+    """
+    target_base = (
+        os.getenv("RENDER_EXTERNAL_URL")
+        or os.getenv("OCR_SERVICE_URL")
+        or "https://cardflow-ocr.onrender.com"
+    ).rstrip("/")
+
+    if "127.0.0.1" in target_base or "localhost" in target_base:
+        return
+
+    ping_url = f"{target_base}/api/v1/ping"
+
+    def _keep_alive_loop() -> None:
+        while True:
+            time.sleep(480)  # 8 minutes (well inside Render's 15-min window)
+            try:
+                req = urllib.request.Request(
+                    ping_url,
+                    headers={"User-Agent": "CardFlow-SelfKeepAlive/1.0"},
+                )
+                with urllib.request.urlopen(req, timeout=20) as _:
+                    pass
+            except Exception:
+                pass
+
+    thread = threading.Thread(target=_keep_alive_loop, name="cardflow-self-keepalive", daemon=True)
+    thread.start()
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     init_db()
     seed_default_admin_account()
     PersistentJobQueueManager.get_instance().start()
+    start_self_keep_alive_daemon()
     yield
 
 
