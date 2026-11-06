@@ -1,0 +1,22 @@
+name: Keep Render OCR Backend Awake
+
+on:
+  schedule:
+    # Runs every 10 minutes so Render Free Tier (15-min idle timeout) never sleeps
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render OCR Backend Keep-Alive Endpoint
+        env:
+          BACKEND_PING_URL: ${{ secrets.BACKEND_PING_URL }}
+        run: |
+          if [ -z "$BACKEND_PING_URL" ]; then
+            echo "Set BACKEND_PING_URL repository secret to https://<your-service>.onrender.com/api/v1/ping"
+            exit 0
+          fi
+          curl --fail --silent --show-error --max-time 60 "$BACKEND_PING_URL"
+

@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+build/
+
+# Environment
+.env
+.env*.local
+pw.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+backend/.pytest_cache/
+backend/data/*.db
+backend/data/*.db-journal
+backend/data/*.db-wal
+backend/data/storage/
+
+# Testing & Misc
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+tsconfig.tsbuildinfo
+next-env.d.ts
+

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --cf-primary: #101F50;
+  --cf-secondary: #3478F6;
+  --cf-accent: #19C6B3;
+  --cf-bg: #F3F6FB;
+  --cf-surface: #FFFFFF;
+  --cf-text: #202B42;
+  --cf-text-muted: #5A6782;
+  --cf-border: #DDE4F0;
+  --cf-warning: #FFB52E;
+  --cf-danger: #E11D48;
+  --cf-success: #0D9488;
+}
+
+@layer base {
+  * {
+    border-color: var(--cf-border);
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--cf-bg);
+    color: var(--cf-text);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  input,
+  textarea,
+  select {
+    color: var(--cf-text);
+  }
+
+  button,
+  a {
+    touch-action: manipulation;
+  }
+}
+
+/* Prevent iOS Safari zoom on input focus while preserving desktop sizing */
+@media screen and (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

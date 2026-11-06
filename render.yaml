@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: cardflow-ocr-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /api/v1/ping
+    envVars:
+      - key: OCR_LOW_MEMORY_MODE
+        value: "1"
+      - key: MAX_CONCURRENT_OCR_WORKERS
+        value: "1"
+      - key: MAX_BATCH_SIZE
+        value: "50"
+      - key: MAX_FILE_SIZE_MB
+        value: "10"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: OCR_INTERNAL_SHARED_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+

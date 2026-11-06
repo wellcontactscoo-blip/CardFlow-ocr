@@ -1,0 +1,2402 @@
+[
+  {
+    "id": 1,
+    "filename": "bench_card_001.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nAarav Sharma\nChief Executive Officer\nB.Tech, MBA\nMob: +91 98005 43210\nEmail: aarav.sharma@mehtatech.in\nWeb: www.mehtatech.in\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Aarav Sharma",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919800543210",
+      "email": "aarav.sharma@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": null,
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 2,
+    "filename": "bench_card_002.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nVivaan Reddy\nManaging Director\nPhD, CFA\nMob: +91 98015 43211\nEmail: vivaan.reddy@verdantfintech.com\nWeb: www.verdantfintech.com\nlinkedin.com/in/vivaanreddy\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Vivaan Reddy",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919801543211",
+      "email": "vivaan.reddy@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": "https://linkedin.com/in/vivaanreddy",
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 3,
+    "filename": "bench_card_003.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "banner"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nAditya Patel\nVice President\nM.Tech\nMob: +91 98025 43212\nEmail: aditya.patel@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\nlinkedin.com/in/adityapatel\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Aditya Patel",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919802543212",
+      "email": "aditya.patel@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": "https://linkedin.com/in/adityapatel",
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 4,
+    "filename": "bench_card_004.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nVihaan Rao\nBusiness Development Manager\nB.Com, FCA\nMob: +91 98035 43213\nEmail: vihaan.rao@deccanbiotech.in\nWeb: www.deccanbiotech.in\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Vihaan Rao",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919803543213",
+      "email": "vihaan.rao@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": null,
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 5,
+    "filename": "bench_card_005.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nArjun Malhotra\nPrincipal Consultant\nMBBS, MD\nMob: +91 98045 43214\nEmail: arjun.malhotra@singhaniacapital.com\nWeb: www.singhaniacapital.com\nlinkedin.com/in/arjunmalhotra\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Arjun Malhotra",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919804543214",
+      "email": "arjun.malhotra@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": "https://linkedin.com/in/arjunmalhotra",
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 6,
+    "filename": "bench_card_006.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nReyansh Chatterjee\nChief Executive Officer\nMob: +91 98055 43215\nEmail: reyansh.chatterjee@apexcloud.in\nWeb: www.apexcloud.in\nlinkedin.com/in/reyanshchatterjee\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Reyansh Chatterjee",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919805543215",
+      "email": "reyansh.chatterjee@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": "https://linkedin.com/in/reyanshchatterjee",
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 7,
+    "filename": "bench_card_007.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nRohan Gupta\nManaging Director\nMob: +91 98065 43216\nEmail: rohan.gupta@horizondigital.com\nWeb: www.horizondigital.com\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Rohan Gupta",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919806543216",
+      "email": "rohan.gupta@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 8,
+    "filename": "bench_card_008.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nKarthik Nair\nVice President\nMob: +91 98075 43217\nEmail: karthik.nair@prismanalytics.io\nWeb: www.prismanalytics.io\nlinkedin.com/in/karthiknair\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Karthik Nair",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919807543217",
+      "email": "karthik.nair@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": "https://linkedin.com/in/karthiknair",
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 9,
+    "filename": "bench_card_009.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nVikram Singhania\nBusiness Development Manager\nB.Tech, MBA\nMob: +91 98085 43218\nEmail: vikram.singhania@nexushealth.in\nWeb: www.nexushealth.in\nlinkedin.com/in/vikramsinghania\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Vikram Singhania",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919808543218",
+      "email": "vikram.singhania@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": "https://linkedin.com/in/vikramsinghania",
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 10,
+    "filename": "bench_card_010.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "standard"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nSiddharth Verma\nPrincipal Consultant\nPhD, CFA\nMob: +91 98095 43219\nEmail: siddharth.verma@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Siddharth Verma",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919809543219",
+      "email": "siddharth.verma@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": null,
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 11,
+    "filename": "bench_card_011.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nPriya Deshmukh\nChief Executive Officer\nM.Tech\nMob: +91 98105 43220\nEmail: priya.deshmukh@mehtatech.in\nWeb: www.mehtatech.in\nlinkedin.com/in/priyadeshmukh\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Priya Deshmukh",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919810543220",
+      "email": "priya.deshmukh@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": "https://linkedin.com/in/priyadeshmukh",
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 12,
+    "filename": "bench_card_012.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nAnanya Bhatia\nManaging Director\nB.Com, FCA\nMob: +91 98115 43221\nEmail: ananya.bhatia@verdantfintech.com\nWeb: www.verdantfintech.com\nlinkedin.com/in/ananyabhatia\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Ananya Bhatia",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919811543221",
+      "email": "ananya.bhatia@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": "https://linkedin.com/in/ananyabhatia",
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 13,
+    "filename": "bench_card_013.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nDiya Sen\nVice President\nMBBS, MD\nMob: +91 98125 43222\nEmail: diya.sen@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Diya Sen",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919812543222",
+      "email": "diya.sen@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": null,
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 14,
+    "filename": "bench_card_014.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nAadhya Mehta\nBusiness Development Manager\nMob: +91 98135 43223\nEmail: aadhya.mehta@deccanbiotech.in\nWeb: www.deccanbiotech.in\nlinkedin.com/in/aadhyamehta\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Aadhya Mehta",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919813543223",
+      "email": "aadhya.mehta@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": "https://linkedin.com/in/aadhyamehta",
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 15,
+    "filename": "bench_card_015.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nKavya Kulkarni\nPrincipal Consultant\nMob: +91 98145 43224\nEmail: kavya.kulkarni@singhaniacapital.com\nWeb: www.singhaniacapital.com\nlinkedin.com/in/kavyakulkarni\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Kavya Kulkarni",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919814543224",
+      "email": "kavya.kulkarni@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": "https://linkedin.com/in/kavyakulkarni",
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 16,
+    "filename": "bench_card_016.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nMeera Iyer\nChief Executive Officer\nMob: +91 98155 43225\nEmail: meera.iyer@apexcloud.in\nWeb: www.apexcloud.in\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Meera Iyer",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919815543225",
+      "email": "meera.iyer@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 17,
+    "filename": "bench_card_017.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": true,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nNeha Joshi\nManaging Director\nB.Tech, MBA\nMob: +91 98165 43226\nEmail: neha.joshi@horizondigital.com\nWeb: www.horizondigital.com\nlinkedin.com/in/nehajoshi\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Neha Joshi",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919816543226",
+      "email": "neha.joshi@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": "https://linkedin.com/in/nehajoshi",
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 18,
+    "filename": "bench_card_018.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nPooja Kapoor\nVice President\nPhD, CFA\nMob: +91 98175 43227\nEmail: pooja.kapoor@prismanalytics.io\nWeb: www.prismanalytics.io\nlinkedin.com/in/poojakapoor\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Pooja Kapoor",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919817543227",
+      "email": "pooja.kapoor@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": "https://linkedin.com/in/poojakapoor",
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 19,
+    "filename": "bench_card_019.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nShreya Menon\nBusiness Development Manager\nM.Tech\nMob: +91 98185 43228\nEmail: shreya.menon@nexushealth.in\nWeb: www.nexushealth.in\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Shreya Menon",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919818543228",
+      "email": "shreya.menon@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": null,
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 20,
+    "filename": "bench_card_020.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nNandini Agarwal\nPrincipal Consultant\nB.Com, FCA\nMob: +91 98195 43229\nEmail: nandini.agarwal@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\nlinkedin.com/in/nandiniagarwal\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Nandini Agarwal",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919819543229",
+      "email": "nandini.agarwal@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": "https://linkedin.com/in/nandiniagarwal",
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 21,
+    "filename": "bench_card_021.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nAarav Sharma\nChief Executive Officer\nMBBS, MD\nMob: +91 98205 43230\nEmail: aarav.sharma@mehtatech.in\nWeb: www.mehtatech.in\nlinkedin.com/in/aaravsharma\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Aarav Sharma",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919820543230",
+      "email": "aarav.sharma@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": "https://linkedin.com/in/aaravsharma",
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 22,
+    "filename": "bench_card_022.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nVivaan Reddy\nManaging Director\nMob: +91 98215 43231\nEmail: vivaan.reddy@verdantfintech.com\nWeb: www.verdantfintech.com\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Vivaan Reddy",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919821543231",
+      "email": "vivaan.reddy@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 23,
+    "filename": "bench_card_023.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nAditya Patel\nVice President\nMob: +91 98225 43232\nEmail: aditya.patel@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\nlinkedin.com/in/adityapatel\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Aditya Patel",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919822543232",
+      "email": "aditya.patel@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": "https://linkedin.com/in/adityapatel",
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 24,
+    "filename": "bench_card_024.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "banner"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nVihaan Rao\nBusiness Development Manager\nMob: +91 98235 43233\nEmail: vihaan.rao@deccanbiotech.in\nWeb: www.deccanbiotech.in\nlinkedin.com/in/vihaanrao\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Vihaan Rao",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919823543233",
+      "email": "vihaan.rao@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": "https://linkedin.com/in/vihaanrao",
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 25,
+    "filename": "bench_card_025.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nArjun Malhotra\nPrincipal Consultant\nB.Tech, MBA\nMob: +91 98245 43234\nEmail: arjun.malhotra@singhaniacapital.com\nWeb: www.singhaniacapital.com\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Arjun Malhotra",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919824543234",
+      "email": "arjun.malhotra@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": null,
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 26,
+    "filename": "bench_card_026.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nReyansh Chatterjee\nChief Executive Officer\nPhD, CFA\nMob: +91 98255 43235\nEmail: reyansh.chatterjee@apexcloud.in\nWeb: www.apexcloud.in\nlinkedin.com/in/reyanshchatterjee\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Reyansh Chatterjee",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919825543235",
+      "email": "reyansh.chatterjee@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": "https://linkedin.com/in/reyanshchatterjee",
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 27,
+    "filename": "bench_card_027.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nRohan Gupta\nManaging Director\nM.Tech\nMob: +91 98265 43236\nEmail: rohan.gupta@horizondigital.com\nWeb: www.horizondigital.com\nlinkedin.com/in/rohangupta\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Rohan Gupta",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919826543236",
+      "email": "rohan.gupta@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": "https://linkedin.com/in/rohangupta",
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 28,
+    "filename": "bench_card_028.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nKarthik Nair\nVice President\nB.Com, FCA\nMob: +91 98275 43237\nEmail: karthik.nair@prismanalytics.io\nWeb: www.prismanalytics.io\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Karthik Nair",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919827543237",
+      "email": "karthik.nair@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": null,
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 29,
+    "filename": "bench_card_029.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nVikram Singhania\nBusiness Development Manager\nMBBS, MD\nMob: +91 98285 43238\nEmail: vikram.singhania@nexushealth.in\nWeb: www.nexushealth.in\nlinkedin.com/in/vikramsinghania\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Vikram Singhania",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919828543238",
+      "email": "vikram.singhania@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": "https://linkedin.com/in/vikramsinghania",
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 30,
+    "filename": "bench_card_030.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nSiddharth Verma\nPrincipal Consultant\nMob: +91 98295 43239\nEmail: siddharth.verma@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\nlinkedin.com/in/siddharthverma\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Siddharth Verma",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919829543239",
+      "email": "siddharth.verma@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": "https://linkedin.com/in/siddharthverma",
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 31,
+    "filename": "bench_card_031.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "standard"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nPriya Deshmukh\nChief Executive Officer\nMob: +91 98305 43240\nEmail: priya.deshmukh@mehtatech.in\nWeb: www.mehtatech.in\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Priya Deshmukh",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919830543240",
+      "email": "priya.deshmukh@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 32,
+    "filename": "bench_card_032.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nAnanya Bhatia\nManaging Director\nMob: +91 98315 43241\nEmail: ananya.bhatia@verdantfintech.com\nWeb: www.verdantfintech.com\nlinkedin.com/in/ananyabhatia\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Ananya Bhatia",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919831543241",
+      "email": "ananya.bhatia@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": "https://linkedin.com/in/ananyabhatia",
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 33,
+    "filename": "bench_card_033.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nDiya Sen\nVice President\nB.Tech, MBA\nMob: +91 98325 43242\nEmail: diya.sen@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\nlinkedin.com/in/diyasen\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Diya Sen",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919832543242",
+      "email": "diya.sen@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": "https://linkedin.com/in/diyasen",
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 34,
+    "filename": "bench_card_034.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nAadhya Mehta\nBusiness Development Manager\nPhD, CFA\nMob: +91 98335 43243\nEmail: aadhya.mehta@deccanbiotech.in\nWeb: www.deccanbiotech.in\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Aadhya Mehta",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919833543243",
+      "email": "aadhya.mehta@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": null,
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 35,
+    "filename": "bench_card_035.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nKavya Kulkarni\nPrincipal Consultant\nM.Tech\nMob: +91 98345 43244\nEmail: kavya.kulkarni@singhaniacapital.com\nWeb: www.singhaniacapital.com\nlinkedin.com/in/kavyakulkarni\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Kavya Kulkarni",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919834543244",
+      "email": "kavya.kulkarni@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": "https://linkedin.com/in/kavyakulkarni",
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 36,
+    "filename": "bench_card_036.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nMeera Iyer\nChief Executive Officer\nB.Com, FCA\nMob: +91 98355 43245\nEmail: meera.iyer@apexcloud.in\nWeb: www.apexcloud.in\nlinkedin.com/in/meeraiyer\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Meera Iyer",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919835543245",
+      "email": "meera.iyer@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": "https://linkedin.com/in/meeraiyer",
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 37,
+    "filename": "bench_card_037.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nNeha Joshi\nManaging Director\nMBBS, MD\nMob: +91 98365 43246\nEmail: neha.joshi@horizondigital.com\nWeb: www.horizondigital.com\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Neha Joshi",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919836543246",
+      "email": "neha.joshi@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": null,
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 38,
+    "filename": "bench_card_038.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nPooja Kapoor\nVice President\nMob: +91 98375 43247\nEmail: pooja.kapoor@prismanalytics.io\nWeb: www.prismanalytics.io\nlinkedin.com/in/poojakapoor\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Pooja Kapoor",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919837543247",
+      "email": "pooja.kapoor@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": "https://linkedin.com/in/poojakapoor",
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 39,
+    "filename": "bench_card_039.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nShreya Menon\nBusiness Development Manager\nMob: +91 98385 43248\nEmail: shreya.menon@nexushealth.in\nWeb: www.nexushealth.in\nlinkedin.com/in/shreyamenon\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Shreya Menon",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919838543248",
+      "email": "shreya.menon@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": "https://linkedin.com/in/shreyamenon",
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 40,
+    "filename": "bench_card_040.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nNandini Agarwal\nPrincipal Consultant\nMob: +91 98395 43249\nEmail: nandini.agarwal@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Nandini Agarwal",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919839543249",
+      "email": "nandini.agarwal@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 41,
+    "filename": "bench_card_041.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nAarav Sharma\nChief Executive Officer\nB.Tech, MBA\nMob: +91 98405 43250\nEmail: aarav.sharma@mehtatech.in\nWeb: www.mehtatech.in\nlinkedin.com/in/aaravsharma\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Aarav Sharma",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919840543250",
+      "email": "aarav.sharma@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": "https://linkedin.com/in/aaravsharma",
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 42,
+    "filename": "bench_card_042.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nVivaan Reddy\nManaging Director\nPhD, CFA\nMob: +91 98415 43251\nEmail: vivaan.reddy@verdantfintech.com\nWeb: www.verdantfintech.com\nlinkedin.com/in/vivaanreddy\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Vivaan Reddy",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919841543251",
+      "email": "vivaan.reddy@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": "https://linkedin.com/in/vivaanreddy",
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 43,
+    "filename": "bench_card_043.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nAditya Patel\nVice President\nM.Tech\nMob: +91 98425 43252\nEmail: aditya.patel@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Aditya Patel",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919842543252",
+      "email": "aditya.patel@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": null,
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 44,
+    "filename": "bench_card_044.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nVihaan Rao\nBusiness Development Manager\nB.Com, FCA\nMob: +91 98435 43253\nEmail: vihaan.rao@deccanbiotech.in\nWeb: www.deccanbiotech.in\nlinkedin.com/in/vihaanrao\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Vihaan Rao",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919843543253",
+      "email": "vihaan.rao@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": "https://linkedin.com/in/vihaanrao",
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 45,
+    "filename": "bench_card_045.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "banner"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nArjun Malhotra\nPrincipal Consultant\nMBBS, MD\nMob: +91 98445 43254\nEmail: arjun.malhotra@singhaniacapital.com\nWeb: www.singhaniacapital.com\nlinkedin.com/in/arjunmalhotra\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Arjun Malhotra",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919844543254",
+      "email": "arjun.malhotra@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": "https://linkedin.com/in/arjunmalhotra",
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 46,
+    "filename": "bench_card_046.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nReyansh Chatterjee\nChief Executive Officer\nMob: +91 98455 43255\nEmail: reyansh.chatterjee@apexcloud.in\nWeb: www.apexcloud.in\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Reyansh Chatterjee",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919845543255",
+      "email": "reyansh.chatterjee@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 47,
+    "filename": "bench_card_047.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nRohan Gupta\nManaging Director\nMob: +91 98465 43256\nEmail: rohan.gupta@horizondigital.com\nWeb: www.horizondigital.com\nlinkedin.com/in/rohangupta\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Rohan Gupta",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919846543256",
+      "email": "rohan.gupta@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": "https://linkedin.com/in/rohangupta",
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 48,
+    "filename": "bench_card_048.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nKarthik Nair\nVice President\nMob: +91 98475 43257\nEmail: karthik.nair@prismanalytics.io\nWeb: www.prismanalytics.io\nlinkedin.com/in/karthiknair\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Karthik Nair",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919847543257",
+      "email": "karthik.nair@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": "https://linkedin.com/in/karthiknair",
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 49,
+    "filename": "bench_card_049.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nVikram Singhania\nBusiness Development Manager\nB.Tech, MBA\nMob: +91 98485 43258\nEmail: vikram.singhania@nexushealth.in\nWeb: www.nexushealth.in\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Vikram Singhania",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919848543258",
+      "email": "vikram.singhania@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": null,
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 50,
+    "filename": "bench_card_050.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nSiddharth Verma\nPrincipal Consultant\nPhD, CFA\nMob: +91 98495 43259\nEmail: siddharth.verma@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\nlinkedin.com/in/siddharthverma\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Siddharth Verma",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919849543259",
+      "email": "siddharth.verma@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": "https://linkedin.com/in/siddharthverma",
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 51,
+    "filename": "bench_card_051.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nPriya Deshmukh\nChief Executive Officer\nM.Tech\nMob: +91 98505 43260\nEmail: priya.deshmukh@mehtatech.in\nWeb: www.mehtatech.in\nlinkedin.com/in/priyadeshmukh\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Priya Deshmukh",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919850543260",
+      "email": "priya.deshmukh@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": "https://linkedin.com/in/priyadeshmukh",
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 52,
+    "filename": "bench_card_052.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": true,
+      "layout": "standard"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nAnanya Bhatia\nManaging Director\nB.Com, FCA\nMob: +91 98515 43261\nEmail: ananya.bhatia@verdantfintech.com\nWeb: www.verdantfintech.com\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Ananya Bhatia",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919851543261",
+      "email": "ananya.bhatia@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": null,
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 53,
+    "filename": "bench_card_053.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nDiya Sen\nVice President\nMBBS, MD\nMob: +91 98525 43262\nEmail: diya.sen@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\nlinkedin.com/in/diyasen\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Diya Sen",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919852543262",
+      "email": "diya.sen@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": "https://linkedin.com/in/diyasen",
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 54,
+    "filename": "bench_card_054.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nAadhya Mehta\nBusiness Development Manager\nMob: +91 98535 43263\nEmail: aadhya.mehta@deccanbiotech.in\nWeb: www.deccanbiotech.in\nlinkedin.com/in/aadhyamehta\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Aadhya Mehta",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919853543263",
+      "email": "aadhya.mehta@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": "https://linkedin.com/in/aadhyamehta",
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 55,
+    "filename": "bench_card_055.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nKavya Kulkarni\nPrincipal Consultant\nMob: +91 98545 43264\nEmail: kavya.kulkarni@singhaniacapital.com\nWeb: www.singhaniacapital.com\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Kavya Kulkarni",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919854543264",
+      "email": "kavya.kulkarni@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 56,
+    "filename": "bench_card_056.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nMeera Iyer\nChief Executive Officer\nMob: +91 98555 43265\nEmail: meera.iyer@apexcloud.in\nWeb: www.apexcloud.in\nlinkedin.com/in/meeraiyer\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Meera Iyer",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919855543265",
+      "email": "meera.iyer@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": "https://linkedin.com/in/meeraiyer",
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 57,
+    "filename": "bench_card_057.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nNeha Joshi\nManaging Director\nB.Tech, MBA\nMob: +91 98565 43266\nEmail: neha.joshi@horizondigital.com\nWeb: www.horizondigital.com\nlinkedin.com/in/nehajoshi\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Neha Joshi",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919856543266",
+      "email": "neha.joshi@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": "https://linkedin.com/in/nehajoshi",
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 58,
+    "filename": "bench_card_058.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nPooja Kapoor\nVice President\nPhD, CFA\nMob: +91 98575 43267\nEmail: pooja.kapoor@prismanalytics.io\nWeb: www.prismanalytics.io\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Pooja Kapoor",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919857543267",
+      "email": "pooja.kapoor@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": null,
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 59,
+    "filename": "bench_card_059.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nShreya Menon\nBusiness Development Manager\nM.Tech\nMob: +91 98585 43268\nEmail: shreya.menon@nexushealth.in\nWeb: www.nexushealth.in\nlinkedin.com/in/shreyamenon\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Shreya Menon",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919858543268",
+      "email": "shreya.menon@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": "https://linkedin.com/in/shreyamenon",
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 60,
+    "filename": "bench_card_060.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nNandini Agarwal\nPrincipal Consultant\nB.Com, FCA\nMob: +91 98595 43269\nEmail: nandini.agarwal@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\nlinkedin.com/in/nandiniagarwal\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Nandini Agarwal",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919859543269",
+      "email": "nandini.agarwal@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": "https://linkedin.com/in/nandiniagarwal",
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 61,
+    "filename": "bench_card_061.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nAarav Sharma\nChief Executive Officer\nMBBS, MD\nMob: +91 98605 43270\nEmail: aarav.sharma@mehtatech.in\nWeb: www.mehtatech.in\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Aarav Sharma",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919860543270",
+      "email": "aarav.sharma@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": null,
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 62,
+    "filename": "bench_card_062.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nVivaan Reddy\nManaging Director\nMob: +91 98615 43271\nEmail: vivaan.reddy@verdantfintech.com\nWeb: www.verdantfintech.com\nlinkedin.com/in/vivaanreddy\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Vivaan Reddy",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919861543271",
+      "email": "vivaan.reddy@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": "https://linkedin.com/in/vivaanreddy",
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 63,
+    "filename": "bench_card_063.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nAditya Patel\nVice President\nMob: +91 98625 43272\nEmail: aditya.patel@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\nlinkedin.com/in/adityapatel\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Aditya Patel",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919862543272",
+      "email": "aditya.patel@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": "https://linkedin.com/in/adityapatel",
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 64,
+    "filename": "bench_card_064.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nVihaan Rao\nBusiness Development Manager\nMob: +91 98635 43273\nEmail: vihaan.rao@deccanbiotech.in\nWeb: www.deccanbiotech.in\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Vihaan Rao",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919863543273",
+      "email": "vihaan.rao@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 65,
+    "filename": "bench_card_065.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nArjun Malhotra\nPrincipal Consultant\nB.Tech, MBA\nMob: +91 98645 43274\nEmail: arjun.malhotra@singhaniacapital.com\nWeb: www.singhaniacapital.com\nlinkedin.com/in/arjunmalhotra\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Arjun Malhotra",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919864543274",
+      "email": "arjun.malhotra@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": "https://linkedin.com/in/arjunmalhotra",
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 66,
+    "filename": "bench_card_066.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "banner"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nReyansh Chatterjee\nChief Executive Officer\nPhD, CFA\nMob: +91 98655 43275\nEmail: reyansh.chatterjee@apexcloud.in\nWeb: www.apexcloud.in\nlinkedin.com/in/reyanshchatterjee\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Reyansh Chatterjee",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919865543275",
+      "email": "reyansh.chatterjee@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": "https://linkedin.com/in/reyanshchatterjee",
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 67,
+    "filename": "bench_card_067.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nRohan Gupta\nManaging Director\nM.Tech\nMob: +91 98665 43276\nEmail: rohan.gupta@horizondigital.com\nWeb: www.horizondigital.com\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Rohan Gupta",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919866543276",
+      "email": "rohan.gupta@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": null,
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 68,
+    "filename": "bench_card_068.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nKarthik Nair\nVice President\nB.Com, FCA\nMob: +91 98675 43277\nEmail: karthik.nair@prismanalytics.io\nWeb: www.prismanalytics.io\nlinkedin.com/in/karthiknair\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Karthik Nair",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919867543277",
+      "email": "karthik.nair@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": "https://linkedin.com/in/karthiknair",
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 69,
+    "filename": "bench_card_069.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nVikram Singhania\nBusiness Development Manager\nMBBS, MD\nMob: +91 98685 43278\nEmail: vikram.singhania@nexushealth.in\nWeb: www.nexushealth.in\nlinkedin.com/in/vikramsinghania\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Vikram Singhania",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919868543278",
+      "email": "vikram.singhania@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": "https://linkedin.com/in/vikramsinghania",
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 70,
+    "filename": "bench_card_070.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nSiddharth Verma\nPrincipal Consultant\nMob: +91 98695 43279\nEmail: siddharth.verma@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Siddharth Verma",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919869543279",
+      "email": "siddharth.verma@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 71,
+    "filename": "bench_card_071.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nPriya Deshmukh\nChief Executive Officer\nMob: +91 98705 43280\nEmail: priya.deshmukh@mehtatech.in\nWeb: www.mehtatech.in\nlinkedin.com/in/priyadeshmukh\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Priya Deshmukh",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919870543280",
+      "email": "priya.deshmukh@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": "https://linkedin.com/in/priyadeshmukh",
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 72,
+    "filename": "bench_card_072.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nAnanya Bhatia\nManaging Director\nMob: +91 98715 43281\nEmail: ananya.bhatia@verdantfintech.com\nWeb: www.verdantfintech.com\nlinkedin.com/in/ananyabhatia\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Ananya Bhatia",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919871543281",
+      "email": "ananya.bhatia@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": "https://linkedin.com/in/ananyabhatia",
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 73,
+    "filename": "bench_card_073.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "standard"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nDiya Sen\nVice President\nB.Tech, MBA\nMob: +91 98725 43282\nEmail: diya.sen@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Diya Sen",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919872543282",
+      "email": "diya.sen@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": null,
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 74,
+    "filename": "bench_card_074.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nAadhya Mehta\nBusiness Development Manager\nPhD, CFA\nMob: +91 98735 43283\nEmail: aadhya.mehta@deccanbiotech.in\nWeb: www.deccanbiotech.in\nlinkedin.com/in/aadhyamehta\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Aadhya Mehta",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919873543283",
+      "email": "aadhya.mehta@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": "https://linkedin.com/in/aadhyamehta",
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 75,
+    "filename": "bench_card_075.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nKavya Kulkarni\nPrincipal Consultant\nM.Tech\nMob: +91 98745 43284\nEmail: kavya.kulkarni@singhaniacapital.com\nWeb: www.singhaniacapital.com\nlinkedin.com/in/kavyakulkarni\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Kavya Kulkarni",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919874543284",
+      "email": "kavya.kulkarni@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": "https://linkedin.com/in/kavyakulkarni",
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 76,
+    "filename": "bench_card_076.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nMeera Iyer\nChief Executive Officer\nB.Com, FCA\nMob: +91 98755 43285\nEmail: meera.iyer@apexcloud.in\nWeb: www.apexcloud.in\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Meera Iyer",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919875543285",
+      "email": "meera.iyer@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": null,
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 77,
+    "filename": "bench_card_077.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nNeha Joshi\nManaging Director\nMBBS, MD\nMob: +91 98765 43286\nEmail: neha.joshi@horizondigital.com\nWeb: www.horizondigital.com\nlinkedin.com/in/nehajoshi\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Neha Joshi",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919876543286",
+      "email": "neha.joshi@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": "https://linkedin.com/in/nehajoshi",
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 78,
+    "filename": "bench_card_078.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nPooja Kapoor\nVice President\nMob: +91 98775 43287\nEmail: pooja.kapoor@prismanalytics.io\nWeb: www.prismanalytics.io\nlinkedin.com/in/poojakapoor\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Pooja Kapoor",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919877543287",
+      "email": "pooja.kapoor@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": "https://linkedin.com/in/poojakapoor",
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 79,
+    "filename": "bench_card_079.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nShreya Menon\nBusiness Development Manager\nMob: +91 98785 43288\nEmail: shreya.menon@nexushealth.in\nWeb: www.nexushealth.in\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Shreya Menon",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919878543288",
+      "email": "shreya.menon@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 80,
+    "filename": "bench_card_080.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nNandini Agarwal\nPrincipal Consultant\nMob: +91 98795 43289\nEmail: nandini.agarwal@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\nlinkedin.com/in/nandiniagarwal\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Nandini Agarwal",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919879543289",
+      "email": "nandini.agarwal@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": "https://linkedin.com/in/nandiniagarwal",
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 81,
+    "filename": "bench_card_081.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nAarav Sharma\nChief Executive Officer\nB.Tech, MBA\nMob: +91 98805 43290\nEmail: aarav.sharma@mehtatech.in\nWeb: www.mehtatech.in\nlinkedin.com/in/aaravsharma\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Aarav Sharma",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919880543290",
+      "email": "aarav.sharma@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": "https://linkedin.com/in/aaravsharma",
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 82,
+    "filename": "bench_card_082.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nVivaan Reddy\nManaging Director\nPhD, CFA\nMob: +91 98815 43291\nEmail: vivaan.reddy@verdantfintech.com\nWeb: www.verdantfintech.com\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Vivaan Reddy",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919881543291",
+      "email": "vivaan.reddy@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": null,
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 83,
+    "filename": "bench_card_083.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nAditya Patel\nVice President\nM.Tech\nMob: +91 98825 43292\nEmail: aditya.patel@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\nlinkedin.com/in/adityapatel\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Aditya Patel",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919882543292",
+      "email": "aditya.patel@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": "https://linkedin.com/in/adityapatel",
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 84,
+    "filename": "bench_card_084.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nVihaan Rao\nBusiness Development Manager\nB.Com, FCA\nMob: +91 98835 43293\nEmail: vihaan.rao@deccanbiotech.in\nWeb: www.deccanbiotech.in\nlinkedin.com/in/vihaanrao\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Vihaan Rao",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919883543293",
+      "email": "vihaan.rao@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": "https://linkedin.com/in/vihaanrao",
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 85,
+    "filename": "bench_card_085.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nArjun Malhotra\nPrincipal Consultant\nMBBS, MD\nMob: +91 98845 43294\nEmail: arjun.malhotra@singhaniacapital.com\nWeb: www.singhaniacapital.com\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Arjun Malhotra",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919884543294",
+      "email": "arjun.malhotra@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": null,
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 86,
+    "filename": "bench_card_086.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nReyansh Chatterjee\nChief Executive Officer\nMob: +91 98855 43295\nEmail: reyansh.chatterjee@apexcloud.in\nWeb: www.apexcloud.in\nlinkedin.com/in/reyanshchatterjee\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Reyansh Chatterjee",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919885543295",
+      "email": "reyansh.chatterjee@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": "https://linkedin.com/in/reyanshchatterjee",
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 87,
+    "filename": "bench_card_087.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": true,
+      "layout": "banner"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nRohan Gupta\nManaging Director\nMob: +91 98865 43296\nEmail: rohan.gupta@horizondigital.com\nWeb: www.horizondigital.com\nlinkedin.com/in/rohangupta\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Rohan Gupta",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919886543296",
+      "email": "rohan.gupta@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": "https://linkedin.com/in/rohangupta",
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 88,
+    "filename": "bench_card_088.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nKarthik Nair\nVice President\nMob: +91 98875 43297\nEmail: karthik.nair@prismanalytics.io\nWeb: www.prismanalytics.io\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Karthik Nair",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919887543297",
+      "email": "karthik.nair@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 89,
+    "filename": "bench_card_089.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nVikram Singhania\nBusiness Development Manager\nB.Tech, MBA\nMob: +91 98885 43298\nEmail: vikram.singhania@nexushealth.in\nWeb: www.nexushealth.in\nlinkedin.com/in/vikramsinghania\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Vikram Singhania",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919888543298",
+      "email": "vikram.singhania@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": "https://linkedin.com/in/vikramsinghania",
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 90,
+    "filename": "bench_card_090.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nSiddharth Verma\nPrincipal Consultant\nPhD, CFA\nMob: +91 98895 43299\nEmail: siddharth.verma@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\nlinkedin.com/in/siddharthverma\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Siddharth Verma",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919889543299",
+      "email": "siddharth.verma@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": "https://linkedin.com/in/siddharthverma",
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 91,
+    "filename": "bench_card_091.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "MEHTA TECHNOLOGIES PVT LTD\nPriya Deshmukh\nChief Executive Officer\nM.Tech\nMob: +91 98905 43300\nEmail: priya.deshmukh@mehtatech.in\nWeb: www.mehtatech.in\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Priya Deshmukh",
+      "company_name": "MEHTA TECHNOLOGIES PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919890543300",
+      "email": "priya.deshmukh@mehtatech.in",
+      "website": "https://www.mehtatech.in",
+      "linkedin_url": null,
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 92,
+    "filename": "bench_card_092.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "VERDANT FINTECH SOLUTIONS LLP\nAnanya Bhatia\nManaging Director\nB.Com, FCA\nMob: +91 98915 43301\nEmail: ananya.bhatia@verdantfintech.com\nWeb: www.verdantfintech.com\nlinkedin.com/in/ananyabhatia\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Ananya Bhatia",
+      "company_name": "VERDANT FINTECH SOLUTIONS LLP",
+      "designation": "Managing Director",
+      "phone": "+919891543301",
+      "email": "ananya.bhatia@verdantfintech.com",
+      "website": "https://www.verdantfintech.com",
+      "linkedin_url": "https://linkedin.com/in/ananyabhatia",
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  },
+  {
+    "id": 93,
+    "filename": "bench_card_093.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "KULKARNI INFRASTRUCTURE LIMITED\nDiya Sen\nVice President\nMBBS, MD\nMob: +91 98925 43302\nEmail: diya.sen@kulkarniinfra.co.in\nWeb: www.kulkarniinfra.co.in\nlinkedin.com/in/diyasen\nSuite 12, Connaught Place, Inner Circle\nNew Delhi, Delhi - 110001, India",
+    "ground_truth_fields": {
+      "full_name": "Diya Sen",
+      "company_name": "KULKARNI INFRASTRUCTURE LIMITED",
+      "designation": "Vice President",
+      "phone": "+919892543302",
+      "email": "diya.sen@kulkarniinfra.co.in",
+      "website": "https://www.kulkarniinfra.co.in",
+      "linkedin_url": "https://linkedin.com/in/diyasen",
+      "education": "MBBS, MD",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "postal_code": "110001",
+      "address": "Suite 12, Connaught Place, Inner Circle, New Delhi, Delhi - 110001, India"
+    }
+  },
+  {
+    "id": 94,
+    "filename": "bench_card_094.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": true,
+      "layout": "standard"
+    },
+    "ground_truth_text": "DECCAN BIOTECH LABS PRIVATE LIMITED\nAadhya Mehta\nBusiness Development Manager\nMob: +91 98935 43303\nEmail: aadhya.mehta@deccanbiotech.in\nWeb: www.deccanbiotech.in\nTower B, Cyber City, Sector 24\nGurugram, Haryana - 122002, India",
+    "ground_truth_fields": {
+      "full_name": "Aadhya Mehta",
+      "company_name": "DECCAN BIOTECH LABS PRIVATE LIMITED",
+      "designation": "Business Development Manager",
+      "phone": "+919893543303",
+      "email": "aadhya.mehta@deccanbiotech.in",
+      "website": "https://www.deccanbiotech.in",
+      "linkedin_url": null,
+      "education": null,
+      "city": "Gurugram",
+      "state": "Haryana",
+      "postal_code": "122002",
+      "address": "Tower B, Cyber City, Sector 24, Gurugram, Haryana - 122002, India"
+    }
+  },
+  {
+    "id": 95,
+    "filename": "bench_card_095.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "SINGHANIA CAPITAL PARTNERS INC\nKavya Kulkarni\nPrincipal Consultant\nMob: +91 98945 43304\nEmail: kavya.kulkarni@singhaniacapital.com\nWeb: www.singhaniacapital.com\nlinkedin.com/in/kavyakulkarni\nNo. 18, Anna Salai, Mount Road\nChennai, Tamil Nadu - 600002, India",
+    "ground_truth_fields": {
+      "full_name": "Kavya Kulkarni",
+      "company_name": "SINGHANIA CAPITAL PARTNERS INC",
+      "designation": "Principal Consultant",
+      "phone": "+919894543304",
+      "email": "kavya.kulkarni@singhaniacapital.com",
+      "website": "https://www.singhaniacapital.com",
+      "linkedin_url": "https://linkedin.com/in/kavyakulkarni",
+      "education": null,
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "postal_code": "600002",
+      "address": "No. 18, Anna Salai, Mount Road, Chennai, Tamil Nadu - 600002, India"
+    }
+  },
+  {
+    "id": 96,
+    "filename": "bench_card_096.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "APEX CLOUD SYSTEMS PVT LTD\nMeera Iyer\nChief Executive Officer\nMob: +91 98955 43305\nEmail: meera.iyer@apexcloud.in\nWeb: www.apexcloud.in\nlinkedin.com/in/meeraiyer\n301, SG Highway, Prahlad Nagar\nAhmedabad, Gujarat - 380015, India",
+    "ground_truth_fields": {
+      "full_name": "Meera Iyer",
+      "company_name": "APEX CLOUD SYSTEMS PVT LTD",
+      "designation": "Chief Executive Officer",
+      "phone": "+919895543305",
+      "email": "meera.iyer@apexcloud.in",
+      "website": "https://www.apexcloud.in",
+      "linkedin_url": "https://linkedin.com/in/meeraiyer",
+      "education": null,
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "postal_code": "380015",
+      "address": "301, SG Highway, Prahlad Nagar, Ahmedabad, Gujarat - 380015, India"
+    }
+  },
+  {
+    "id": 97,
+    "filename": "bench_card_097.jpg",
+    "category": {
+      "is_dark": true,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "HORIZON DIGITAL VENTURES LLP\nNeha Joshi\nManaging Director\nB.Tech, MBA\nMob: +91 98965 43306\nEmail: neha.joshi@horizondigital.com\nWeb: www.horizondigital.com\n402, Prestige Meridian, M.G. Road\nBengaluru, Karnataka - 560001, India",
+    "ground_truth_fields": {
+      "full_name": "Neha Joshi",
+      "company_name": "HORIZON DIGITAL VENTURES LLP",
+      "designation": "Managing Director",
+      "phone": "+919896543306",
+      "email": "neha.joshi@horizondigital.com",
+      "website": "https://www.horizondigital.com",
+      "linkedin_url": null,
+      "education": "B.Tech, MBA",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560001",
+      "address": "402, Prestige Meridian, M.G. Road, Bengaluru, Karnataka - 560001, India"
+    }
+  },
+  {
+    "id": 98,
+    "filename": "bench_card_098.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "two_column"
+    },
+    "ground_truth_text": "PRISM ANALYTICS SOLUTIONS LIMITED\nPooja Kapoor\nVice President\nPhD, CFA\nMob: +91 98975 43307\nEmail: pooja.kapoor@prismanalytics.io\nWeb: www.prismanalytics.io\nlinkedin.com/in/poojakapoor\nLevel 9, One BKC, Bandra Road\nMumbai, Maharashtra - 400051, India",
+    "ground_truth_fields": {
+      "full_name": "Pooja Kapoor",
+      "company_name": "PRISM ANALYTICS SOLUTIONS LIMITED",
+      "designation": "Vice President",
+      "phone": "+919897543307",
+      "email": "pooja.kapoor@prismanalytics.io",
+      "website": "https://www.prismanalytics.io",
+      "linkedin_url": "https://linkedin.com/in/poojakapoor",
+      "education": "PhD, CFA",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "postal_code": "400051",
+      "address": "Level 9, One BKC, Bandra Road, Mumbai, Maharashtra - 400051, India"
+    }
+  },
+  {
+    "id": 99,
+    "filename": "bench_card_099.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "banner"
+    },
+    "ground_truth_text": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD\nShreya Menon\nBusiness Development Manager\nM.Tech\nMob: +91 98985 43308\nEmail: shreya.menon@nexushealth.in\nWeb: www.nexushealth.in\nlinkedin.com/in/shreyamenon\nPlot 44, Hinjewadi Phase 2, Tech Park\nPune, Maharashtra - 411057, India",
+    "ground_truth_fields": {
+      "full_name": "Shreya Menon",
+      "company_name": "NEXUS HEALTHCARE DIAGNOSTICS PVT LTD",
+      "designation": "Business Development Manager",
+      "phone": "+919898543308",
+      "email": "shreya.menon@nexushealth.in",
+      "website": "https://www.nexushealth.in",
+      "linkedin_url": "https://linkedin.com/in/shreyamenon",
+      "education": "M.Tech",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "postal_code": "411057",
+      "address": "Plot 44, Hinjewadi Phase 2, Tech Park, Pune, Maharashtra - 411057, India"
+    }
+  },
+  {
+    "id": 100,
+    "filename": "bench_card_100.jpg",
+    "category": {
+      "is_dark": false,
+      "is_low_res": false,
+      "layout": "standard"
+    },
+    "ground_truth_text": "PINNACLE LOGISTICS ENTERPRISES LTD\nNandini Agarwal\nPrincipal Consultant\nB.Com, FCA\nMob: +91 98995 43309\nEmail: nandini.agarwal@pinnaclelogistics.com\nWeb: www.pinnaclelogistics.com\nBlock C, Madhapur Main Road\nHyderabad, Telangana - 500081, India",
+    "ground_truth_fields": {
+      "full_name": "Nandini Agarwal",
+      "company_name": "PINNACLE LOGISTICS ENTERPRISES LTD",
+      "designation": "Principal Consultant",
+      "phone": "+919899543309",
+      "email": "nandini.agarwal@pinnaclelogistics.com",
+      "website": "https://www.pinnaclelogistics.com",
+      "linkedin_url": null,
+      "education": "B.Com, FCA",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "postal_code": "500081",
+      "address": "Block C, Madhapur Main Road, Hyderabad, Telangana - 500081, India"
+    }
+  }
+]

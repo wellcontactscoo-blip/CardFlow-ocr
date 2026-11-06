@@ -1,0 +1,127 @@
+{
+  "dataset_total_cards_generated": 100,
+  "cards_evaluated_with_paddleocr": 15,
+  "ocr_character_error_rate_pct": 0.63,
+  "field_metrics": {
+    "phone": {
+      "accuracy_pct": 100.0,
+      "precision_pct": 100.0,
+      "recall_pct": 100.0,
+      "f1_pct": 100.0,
+      "tp": 15,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0
+    },
+    "email": {
+      "accuracy_pct": 86.67,
+      "precision_pct": 100.0,
+      "recall_pct": 86.67,
+      "f1_pct": 92.86,
+      "tp": 13,
+      "fp": 0,
+      "fn": 2,
+      "tn": 0
+    },
+    "full_name": {
+      "accuracy_pct": 100.0,
+      "precision_pct": 100.0,
+      "recall_pct": 100.0,
+      "f1_pct": 100.0,
+      "tp": 15,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0
+    },
+    "company_name": {
+      "accuracy_pct": 100.0,
+      "precision_pct": 100.0,
+      "recall_pct": 100.0,
+      "f1_pct": 100.0,
+      "tp": 15,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0
+    },
+    "designation": {
+      "accuracy_pct": 93.33,
+      "precision_pct": 100.0,
+      "recall_pct": 93.33,
+      "f1_pct": 96.55,
+      "tp": 14,
+      "fp": 0,
+      "fn": 1,
+      "tn": 0
+    },
+    "address": {
+      "accuracy_pct": 100.0,
+      "precision_pct": 100.0,
+      "recall_pct": 100.0,
+      "f1_pct": 100.0,
+      "tp": 15,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0
+    },
+    "city": {
+      "accuracy_pct": 86.67,
+      "precision_pct": 100.0,
+      "recall_pct": 86.67,
+      "f1_pct": 92.86,
+      "tp": 13,
+      "fp": 0,
+      "fn": 2,
+      "tn": 0
+    },
+    "state": {
+      "accuracy_pct": 93.33,
+      "precision_pct": 100.0,
+      "recall_pct": 93.33,
+      "f1_pct": 96.55,
+      "tp": 14,
+      "fp": 0,
+      "fn": 1,
+      "tn": 0
+    },
+    "postal_code": {
+      "accuracy_pct": 93.33,
+      "precision_pct": 100.0,
+      "recall_pct": 93.33,
+      "f1_pct": 96.55,
+      "tp": 14,
+      "fp": 0,
+      "fn": 1,
+      "tn": 0
+    },
+    "website": {
+      "accuracy_pct": 93.33,
+      "precision_pct": 93.33,
+      "recall_pct": 93.33,
+      "f1_pct": 93.33,
+      "tp": 14,
+      "fp": 1,
+      "fn": 1,
+      "tn": 0
+    },
+    "linkedin_url": {
+      "accuracy_pct": 86.67,
+      "precision_pct": 100.0,
+      "recall_pct": 80.0,
+      "f1_pct": 88.89,
+      "tp": 8,
+      "fp": 0,
+      "fn": 2,
+      "tn": 5
+    },
+    "education": {
+      "accuracy_pct": 100.0,
+      "precision_pct": 100.0,
+      "recall_pct": 100.0,
+      "f1_pct": 100.0,
+      "tp": 10,
+      "fp": 0,
+      "fn": 0,
+      "tn": 5
+    }
+  }
+}
