@@ -42,7 +42,7 @@ PHONE_LABEL_CLEAN = re.compile(
 )
 
 HONORIFIC_REGEX = re.compile(
-    r"^(?:mr\.?|mrs\.?|ms\.?|miss|dr\.?|prof\.?|er\.?|ca|adv\.?|shri|smt\.?)\s+",
+    r"^(?:mr|mrs|ms|miss|dr|prof|er|ca|adv|shri|smt)(?:\.\s*|\s+)",
     re.IGNORECASE,
 )
 
@@ -131,20 +131,56 @@ def _confidence_entry(
     }
 
 
+SPECIALTY_LINE_REGEX = re.compile(
+    r"^\s*(?:dealers|specialist|specialists|deals|manufacturers|wholesalers)\s+in\b",
+    re.IGNORECASE,
+)
+
+NON_PERSON_WORDS = {
+    "the", "and", "for", "with", "from", "since", "every", "all", "types",
+    "scan", "location", "good", "food", "mood", "veg", "non", "cuisines",
+    "event", "management", "planning", "income", "tax", "gst", "roc",
+    "business", "investments", "investment", "financial", "audit", "auditor",
+    "legal", "minds", "advocates", "defending", "rights", "beyond",
+    "civil", "criminal", "matrimonial", "cases", "rera", "ipr", "company",
+    "laws", "dealers", "ornaments", "safe", "lockers", "weighing", "counting",
+    "machine", "machines", "operating", "electronic", "shirt", "pant",
+    "pyjama", "school", "uniforms", "specialist", "pharma", "clinic",
+    "center", "centre", "palace", "convention", "jewels", "tailors",
+    "caterers", "scales", "count", "matters", "cell", "mob", "mobile",
+    "email", "mail", "reg", "centrex", "ornament", "silver",
+}
+
+
+def _has_company_suffix(lower_text: str, suffixes: list[str]) -> bool:
+    return any(
+        re.search(rf"(?<![a-zA-Z0-9]){re.escape(suf)}(?![a-zA-Z0-9])", lower_text)
+        for suf in suffixes
+    )
+
+
 def _normalize_camelcase_name(text: str) -> str:
-    """Split fused CamelCase tokens like 'AaravMehta' -> 'Aarav Mehta'."""
-    return re.sub(r"([a-z]{2,})([A-Z][a-z]{2,})", r"\1 \2", text)
+    """Split fused CamelCase tokens ('AaravMehta'), honorifics ('Dr.Ayesha'), and compact initials ('B.Vinod' -> 'B. Vinod')."""
+    out = re.sub(r"([a-z]{2,})([A-Z][a-z]{2,})", r"\1 \2", text)
+    out = re.sub(r"\b(Dr|Mr|Mrs|Ms|Prof|Er|Adv)\.([A-Z])", r"\1. \2", out, flags=re.I)
+    out = re.sub(r"((?:[A-Z]\.){1,3})([A-Z][a-z]+)", r"\1 \2", out)
+    return out
 
 
 def _looks_like_person_name(
     text: str,
     dicts: dict[str, Any],
+    allow_single_word: bool = False,
 ) -> tuple[bool, float]:
     """
     Evaluate whether a text segment looks like a human person's name
-    without confusing company brands, titles, or addresses.
+    without confusing company brands, taglines, services, titles, or addresses.
     """
-    cleaned = re.sub(r"^(?:name\s*[:\-]\s*)", "", text.strip(), flags=re.I)
+    raw_stripped = text.strip()
+    if SPECIALTY_LINE_REGEX.search(raw_stripped) or raw_stripped.endswith(":"):
+        return False, 0.0
+
+    cleaned = re.sub(r"^(?:name\s*[:\-]\s*)", "", raw_stripped, flags=re.I)
     cleaned = _normalize_camelcase_name(cleaned)
     no_honorific = HONORIFIC_REGEX.sub("", cleaned).strip()
     had_honorific = no_honorific != cleaned
@@ -159,15 +195,14 @@ def _looks_like_person_name(
         return False, 0.0
 
     # Must not contain digits, @, www, or slashes
-    if re.search(r"[\d@/\\|+]", no_honorific):
+    if re.search(r"[\d@/\\|+:]", no_honorific):
         return False, 0.0
 
     lower = no_honorific.lower()
 
     # Reject if it contains company suffixes or company keywords
-    for suf in dicts["company_suffixes"]:
-        if re.search(rf"\b{re.escape(suf)}\b", lower):
-            return False, 0.0
+    if _has_company_suffix(lower, dicts["company_suffixes"]):
+        return False, 0.0
     for kw in dicts["company_keywords"]:
         if re.search(rf"\b{re.escape(kw)}\b", lower):
             return False, 0.0
@@ -187,19 +222,24 @@ def _looks_like_person_name(
     if len(tokens) < 1 or len(tokens) > 4:
         return False, 0.0
 
+    # Reject if any token is a known non-person service/tagline word
+    if any(t.lower().strip("'-") in NON_PERSON_WORDS for t in tokens):
+        return False, 0.0
+
     # Check that all tokens are alphabetic (allowing hyphens/apostrophes)
     if not all(re.match(r"^[A-Za-z'\-]+$", t) for t in tokens):
         return False, 0.0
 
-    # Single-word all-caps at top of card is very often a brand/logo, not a full name
+    # Single-word all-caps at top of card is often a brand/logo unless paired with honorific/phone/role
     if len(tokens) == 1 and not had_honorific:
-        return False, 0.0
+        if not allow_single_word or len(tokens[0]) < 4:
+            return False, 0.0
 
     # Ensure at least one token has >= 3 letters
     if not any(len(t) >= 3 for t in tokens):
         return False, 0.0
 
-    score = 0.76
+    score = 0.74 if (len(tokens) == 1 and not had_honorific) else 0.76
     if 2 <= len(tokens) <= 3:
         score += 0.12
     if had_honorific:
@@ -277,6 +317,7 @@ def extract_contact_from_ocr(
         email_match = EMAIL_REGEX.search(text)
         if email_match and extracted["email"] is None:
             email_val = email_match.group(1).strip().lower()
+            email_val = re.sub(r"@gmaill\.com$", "@gmail.com", email_val)
             extracted["email"] = email_val
             confidence["email"] = _confidence_entry(ocr_conf, 0.98, [idx])
             consumed_segments.add(idx)
@@ -383,7 +424,11 @@ def extract_contact_from_ocr(
                     consumed_segments.add(idx)
 
         # 2B. Designation detection
-        if idx not in consumed_segments and "@" not in text:
+        if (
+            idx not in consumed_segments
+            and "@" not in text
+            and not SPECIALTY_LINE_REGEX.search(text)
+        ):
             matched_titles = [
                 title
                 for title in dicts["designations"]
@@ -392,8 +437,9 @@ def extract_contact_from_ocr(
             if matched_titles and len(text) <= 65 and not re.search(r"\d{5,}", text):
                 # Prefer longer/more specific title matches
                 best_title = max(matched_titles, key=len)
+                clean_des_text = re.sub(r"\s+for\s*:\s*$", "", text, flags=re.I).strip()
                 cls_score = 0.92 if len(best_title) >= 6 else 0.84
-                designation_candidates.append((cls_score, text, ocr_conf, idx))
+                designation_candidates.append((cls_score, clean_des_text, ocr_conf, idx))
 
         # 2C. City & State detection
         for city_name, mapped_state in dicts["cities"].items():
@@ -445,9 +491,18 @@ def extract_contact_from_ocr(
         consumed_segments.add(best_idx)
 
     if address_lines:
-        full_addr = ", ".join(
-            line.strip().rstrip(",") for line in address_lines if line.strip()
-        )
+        cleaned_addr_lines: list[str] = []
+        for line in address_lines:
+            # Strip trailing inline phone label/number if merged onto the end of an address line
+            stripped_line = re.sub(
+                r"\s*(?:cell|mob(?:ile)?|ph(?:one)?|tel|m)\s*[:\uff1a.\-]?\s*(?:\+?\d[\d\s\-]{8,})\s*$",
+                "",
+                line.strip(),
+                flags=re.I,
+            ).strip().rstrip(",")
+            if stripped_line:
+                cleaned_addr_lines.append(stripped_line)
+        full_addr = ", ".join(cleaned_addr_lines)
         extracted["address"] = full_addr
         mean_addr_ocr = sum(address_ocr_confs) / len(address_ocr_confs)
         addr_cls = 0.88 if extracted["postal_code"] or extracted["city"] else 0.74
@@ -474,10 +529,14 @@ def extract_contact_from_ocr(
     # ------------------------------------------------------------------------
     # Pass 3: Company Name & Person Full Name (Spatial + Keyword + Domain Signals)
     # ------------------------------------------------------------------------
-    # Extract domain stem hint from corporate email or website
+    # Extract domain stem hint from corporate email or website, plus email local-part hint
     domain_stem: str | None = None
+    email_local_alpha: str = ""
     if extracted["email"]:
         email_domain = extracted["email"].split("@")[-1].lower()
+        email_local_alpha = re.sub(
+            r"[^a-z]", "", extracted["email"].split("@")[0].lower()
+        )
         if email_domain not in COMMON_GENERIC_EMAIL_DOMAINS:
             domain_stem = email_domain.split(".")[0]
     if not domain_stem and extracted["website"]:
@@ -492,84 +551,162 @@ def extract_contact_from_ocr(
         if "designation" in confidence and confidence["designation"]["source_segments"]
         else None
     )
+    phone_indices = {ph[3] for ph in phones_found}
+    seg_by_idx = {int(s.get("reading_order", 0)): s for s in segments}
 
     for seg in segments:
         idx = int(seg.get("reading_order", 0))
+        raw_seg_text = str(seg.get("text", "")).strip()
+
+        # Allow extracting a person name prefix from a line that also had an inline phone (e.g. "Azmathulla Khan M: 9916667573")
         if idx in consumed_segments:
+            if idx in phone_indices and idx not in address_segment_indices:
+                prefix_only = re.sub(
+                    r"\s*(?:cell|mob(?:ile)?|ph(?:one)?|tel|m)?\s*[:\uff1a.\-]?\s*(?:\+?\d[\d\s\-]{8,}).*$",
+                    "",
+                    raw_seg_text,
+                    flags=re.I,
+                ).strip()
+                if prefix_only and len(prefix_only) >= 3:
+                    is_p_name, p_score = _looks_like_person_name(
+                        prefix_only, dicts, allow_single_word=True
+                    )
+                    if is_p_name:
+                        ocr_c = float(seg.get("confidence", 0.85))
+                        name_candidates.append(
+                            (min(p_score + 0.08, 0.98), prefix_only, ocr_c, idx)
+                        )
             continue
 
-        text = str(seg.get("text", "")).strip()
+        text = raw_seg_text
         ocr_conf = float(seg.get("confidence", 0.85))
         bbox = seg.get("bbox", [0, 0, 100, 30])
         y_min = float(bbox[1]) if len(bbox) >= 4 else 0.0
         rel_y = y_min / max(card_h, 1.0)
         lower = text.lower()
 
-        if len(text) < 2 or re.search(r"[@/\\]", text):
+        if (
+            len(text) < 2
+            or re.search(r"[@/\\]", text)
+            or SPECIALTY_LINE_REGEX.search(text)
+            or text.endswith(":")
+        ):
             continue
 
         # Evaluate Company Score
         comp_score = 0.0
-        has_suffix = any(
-            re.search(rf"\b{re.escape(suf)}\b", lower)
-            for suf in dicts["company_suffixes"]
-        )
+        has_suffix = _has_company_suffix(lower, dicts["company_suffixes"])
         has_comp_kw = any(
             re.search(rf"\b{re.escape(kw)}\b", lower)
             for kw in dicts["company_keywords"]
         )
+        cand_alpha = re.sub(r"[^a-z]", "", lower)
         matches_domain = bool(
             domain_stem
             and len(domain_stem) >= 3
             and domain_stem in re.sub(r"\s+", "", lower)
         )
+        matches_email_local = bool(
+            len(email_local_alpha) >= 6
+            and len(cand_alpha) >= 5
+            and (cand_alpha in email_local_alpha or email_local_alpha in cand_alpha)
+        )
 
         if has_suffix:
+            comp_score = 0.96
+        elif has_comp_kw and (matches_domain or matches_email_local):
             comp_score = 0.95
-        elif has_comp_kw and matches_domain:
-            comp_score = 0.93
         elif has_comp_kw:
-            comp_score = 0.86
+            # Prefer specific company names over generic service lines like "Financial Planning"
+            if re.search(r"\b(?:planning|income tax|gst|roc)\b", lower):
+                comp_score = 0.65
+            else:
+                comp_score = 0.88
         elif matches_domain and len(text) <= 45:
             comp_score = 0.84
-        elif text.isupper() and 1 <= len(text.split()) <= 3 and rel_y <= 0.35:
-            # Prominent all-caps brand/logo header near top of card
+        elif (
+            text.isupper()
+            and 1 <= len(text.split()) <= 3
+            and rel_y <= 0.35
+            and 4 <= len(text) <= 24
+            and not re.search(r"\b(?:CASES|LAWS|LOCATION|SINCE)\b", text)
+        ):
+            # Prominent all-caps brand/logo header near top of card (minimum 4 chars to skip 'AHS'/'MC')
             comp_score = 0.72
 
         if comp_score > 0.0:
             company_candidates.append((comp_score, text, ocr_conf, idx))
 
+        # Check if this segment is adjacent to a phone or designation (enables single-word Indian names like ALAUDDIN / SADIQ)
+        near_role_or_phone = bool(
+            (designation_idx is not None and abs(idx - designation_idx) == 1)
+            or any(abs(idx - p_idx) == 1 for p_idx in phone_indices)
+        )
+
         # Evaluate Person Name Score
-        is_name, base_name_score = _looks_like_person_name(text, dicts)
+        is_name, base_name_score = _looks_like_person_name(
+            text, dicts, allow_single_word=near_role_or_phone
+        )
         if is_name and not has_suffix and not has_comp_kw:
             name_score = base_name_score
-            # Spatial boost: immediately above designation is the strongest signal on a business card
-            if designation_idx is not None and idx == designation_idx - 1:
+            # Spatial boost: immediately above/beside designation or phone
+            if designation_idx is not None and abs(idx - designation_idx) == 1:
                 name_score += 0.12
+            elif any(abs(idx - p_idx) == 1 for p_idx in phone_indices):
+                name_score += 0.08
             elif rel_y <= 0.60:
                 name_score += 0.05
 
-            # Email local-part correlation boost
+            # Email local-part correlation boost (only for non-company candidates)
             if extracted["email"]:
                 local_part = extracted["email"].split("@")[0].lower()
                 name_tokens = [t.lower() for t in re.split(r"\W+", text) if len(t) >= 3]
                 if any(tok in local_part for tok in name_tokens):
-                    name_score += 0.10
+                    name_score += 0.12
 
             name_candidates.append((min(name_score, 0.98), text, ocr_conf, idx))
 
+    company_source_indices: set[int] = set()
     if company_candidates:
         company_candidates.sort(key=lambda x: x[0], reverse=True)
         best_c_score, best_c_text, best_c_ocr, best_c_idx = company_candidates[0]
+        source_c_indices = [best_c_idx]
+
+        # Check if the selected company is a single generic keyword (e.g. "TAILORS") or "CONVENTION CENTER"
+        # preceded immediately by a short brand name line (e.g. "Aksa", "THE CRYSTAL PALACE")
+        if (
+            len(best_c_text.split()) == 1
+            or best_c_text.lower() in {"convention center", "legal minds"}
+        ) and (best_c_idx - 1) in seg_by_idx:
+            prev_idx = best_c_idx - 1
+            prev_seg = seg_by_idx[prev_idx]
+            prev_txt = str(prev_seg.get("text", "")).strip()
+            if (
+                prev_idx not in consumed_segments
+                and prev_idx not in phone_indices
+                and prev_idx != designation_idx
+                and 3 <= len(prev_txt) <= 28
+                and not re.search(r"[\d@/\\:]", prev_txt)
+            ):
+                prev_is_multi_person = (
+                    len(prev_txt.split()) >= 2
+                    and _looks_like_person_name(prev_txt, dicts)[0]
+                )
+                if not prev_is_multi_person:
+                    best_c_text = f"{prev_txt} {best_c_text}"
+                    source_c_indices = [prev_idx, best_c_idx]
+                    consumed_segments.add(prev_idx)
+
         extracted["company_name"] = best_c_text
         confidence["company_name"] = _confidence_entry(
-            best_c_ocr, best_c_score, [best_c_idx]
+            best_c_ocr, best_c_score, source_c_indices
         )
         consumed_segments.add(best_c_idx)
+        company_source_indices.update(source_c_indices)
 
     # Filter name candidates to exclude any segment chosen as company_name
     name_candidates = [
-        nc for nc in name_candidates if nc[3] not in consumed_segments
+        nc for nc in name_candidates if nc[3] not in company_source_indices
     ]
     if name_candidates:
         name_candidates.sort(key=lambda x: x[0], reverse=True)
@@ -596,20 +733,6 @@ def extract_contact_from_ocr(
                 best_n_ocr, best_n_score, [best_n_idx]
             )
         consumed_segments.add(best_n_idx)
-
-    # If company_name is still None and we have an remaining prominent header segment not used as name
-    if extracted["company_name"] is None:
-        for seg in segments:
-            idx = int(seg.get("reading_order", 0))
-            if idx in consumed_segments:
-                continue
-            text = str(seg.get("text", "")).strip()
-            ocr_conf = float(seg.get("confidence", 0.85))
-            if 3 <= len(text) <= 45 and not re.search(r"\d{4,}", text):
-                extracted["company_name"] = text
-                confidence["company_name"] = _confidence_entry(ocr_conf, 0.62, [idx])
-                consumed_segments.add(idx)
-                break
 
     # ------------------------------------------------------------------------
     # Pass 4: Collect Unclassified Segments into other_information

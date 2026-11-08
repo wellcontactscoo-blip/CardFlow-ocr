@@ -1,0 +1,359 @@
+[
+  {
+    "file": "WhatsApp Image 2026-11-08 at 12.40.57 AM.jpeg",
+    "ocr_conf": 0.9757,
+    "seg_count": 9,
+    "steps": [
+      "resize_optimal_ocr",
+      "grayscale_analysis",
+      "bilateral_noise_removal",
+      "dark_card_lab_clahe"
+    ],
+    "raw_text": "Amjad Ansari\nB.Com, LLB, MBA.,\n+91 98867 38434\nDSI Legal Minds\nDefending your rights, Beyond\nTrust\nAdvocates & Legal Consultants\n#3,3rd Cross, Rahamath Nagar, R.T. Nagar, Bangalore-560 032.\nE-mail:dsilegalminds@gmail.com",
+    "extracted": {
+      "full_name": "Amjad Ansari",
+      "first_name": "Amjad",
+      "last_name": "Ansari",
+      "company_name": "DSI Legal Minds",
+      "designation": "Advocates & Legal Consultants",
+      "phone": "+919886738434",
+      "raw_phone": "+91 98867 38434",
+      "alternate_phone": null,
+      "raw_alternate_phone": null,
+      "email": "dsilegalminds@gmail.com",
+      "website": null,
+      "address": "#3,3rd Cross, Rahamath Nagar, R.T. Nagar, Bangalore-560 032.",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560032",
+      "country": "India",
+      "education": "B.Com, LLB, MBA.,",
+      "linkedin_url": null,
+      "other_information": [
+        "Defending your rights, Beyond",
+        "Trust"
+      ]
+    },
+    "needs_review": false
+  },
+  {
+    "file": "WhatsApp Image 2026-11-08 at 12.41.21 AM.jpeg",
+    "ocr_conf": 0.9861,
+    "seg_count": 9,
+    "steps": [
+      "resize_optimal_ocr",
+      "grayscale_analysis",
+      "bilateral_noise_removal",
+      "dark_card_lab_clahe"
+    ],
+    "raw_text": "Azmathulla Khan M\uff1a9916667573\nAHS\n916\n75\nAzeez Jewels\nDealers in:22 Ct. 91.6 KDM\nGold Silver Ornaments\n324, Jumma Masjid Road (OPH Road)\nShivajinagar, Bangalore 560051",
+    "extracted": {
+      "full_name": "Azmathulla Khan",
+      "first_name": "Azmathulla",
+      "last_name": "Khan",
+      "company_name": "Azeez Jewels",
+      "designation": null,
+      "phone": "+919916667573",
+      "raw_phone": "9916667573",
+      "alternate_phone": null,
+      "raw_alternate_phone": null,
+      "email": null,
+      "website": null,
+      "address": "324, Jumma Masjid Road (OPH Road), Shivajinagar, Bangalore 560051",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560051",
+      "country": "India",
+      "education": null,
+      "linkedin_url": null,
+      "other_information": [
+        "AHS",
+        "916",
+        "75",
+        "Dealers in:22 Ct. 91.6 KDM",
+        "Gold Silver Ornaments"
+      ]
+    },
+    "needs_review": false
+  },
+  {
+    "file": "WhatsApp Image 2026-11-08 at 12.41.40 AM.jpeg",
+    "ocr_conf": 0.9659,
+    "seg_count": 14,
+    "steps": [
+      "resize_optimal_ocr",
+      "grayscale_analysis",
+      "bilateral_noise_removal",
+      "dark_card_lab_clahe"
+    ],
+    "raw_text": "Investments Planning\nAmjad Ansari\nBusiness Planning\nFinancialF Planning\n9886738434\nANSARI& CO.\nAuditorand\nTaxConsultants\nIncome Tax\n#21,3rd Cross, Rahmath Nagar,\nGST\nBangalore-560032.\nROC\nE-mail :amjad.ansari20@yahoomail.com",
+    "extracted": {
+      "full_name": "Amjad Ansari",
+      "first_name": "Amjad",
+      "last_name": "Ansari",
+      "company_name": "ANSARI& CO.",
+      "designation": null,
+      "phone": "+919886738434",
+      "raw_phone": "9886738434",
+      "alternate_phone": null,
+      "raw_alternate_phone": null,
+      "email": "amjad.ansari20@yahoomail.com",
+      "website": null,
+      "address": "#21,3rd Cross, Rahmath Nagar, Bangalore-560032.",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560032",
+      "country": "India",
+      "education": null,
+      "linkedin_url": null,
+      "other_information": [
+        "Investments Planning",
+        "Business Planning",
+        "FinancialF Planning",
+        "Auditorand",
+        "TaxConsultants",
+        "Income Tax",
+        "GST",
+        "ROC"
+      ]
+    },
+    "needs_review": false
+  },
+  {
+    "file": "WhatsApp Image 2026-11-08 at 12.41.50 AM.jpeg",
+    "ocr_conf": 0.9713,
+    "seg_count": 11,
+    "steps": [
+      "resize_optimal_ocr",
+      "grayscale_analysis",
+      "bilateral_noise_removal",
+      "dark_card_lab_clahe"
+    ],
+    "raw_text": "Manager\nManager\nSADIQ\nSHARIEF\n6362527945\n9986839436\nTHE CRYSTAL PAIACE\nCONVENTION CENTER\n#85,2,Thanisanda Main Road, Near Adishwars Electro World\nR.K. Hegde Nagar, Bengaluru-560 077\ninfo@crystalpalace@gmail.com",
+    "extracted": {
+      "full_name": "SHARIEF",
+      "first_name": "SHARIEF",
+      "last_name": null,
+      "company_name": "THE CRYSTAL PAIACE CONVENTION CENTER",
+      "designation": "Manager",
+      "phone": "+916362527945",
+      "raw_phone": "6362527945",
+      "alternate_phone": "+919986839436",
+      "raw_alternate_phone": "9986839436",
+      "email": "crystalpalace@gmail.com",
+      "website": null,
+      "address": "#85,2,Thanisanda Main Road, Near Adishwars Electro World, R.K. Hegde Nagar, Bengaluru-560 077",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560077",
+      "country": "India",
+      "education": null,
+      "linkedin_url": null,
+      "other_information": [
+        "Manager",
+        "SADIQ"
+      ]
+    },
+    "needs_review": false
+  },
+  {
+    "file": "WhatsApp Image 2026-11-08 at 12.42.02 AM.jpeg",
+    "ocr_conf": 0.9605,
+    "seg_count": 6,
+    "steps": [
+      "resize_optimal_ocr",
+      "grayscale_analysis",
+      "bilateral_noise_removal",
+      "dark_card_lab_clahe",
+      "unsharp_mask_sharpening"
+    ],
+    "raw_text": "Since 1998\nMC\nMARHABA CATERERS\nGOODFOODGOODMOOD\nVeg & Non-Veg Cuisines\nEvent Management",
+    "extracted": {
+      "full_name": null,
+      "first_name": null,
+      "last_name": null,
+      "company_name": "MARHABA CATERERS",
+      "designation": null,
+      "phone": null,
+      "raw_phone": null,
+      "alternate_phone": null,
+      "raw_alternate_phone": null,
+      "email": null,
+      "website": null,
+      "address": null,
+      "city": null,
+      "state": null,
+      "postal_code": null,
+      "country": null,
+      "education": null,
+      "linkedin_url": null,
+      "other_information": [
+        "Since 1998",
+        "MC",
+        "GOODFOODGOODMOOD",
+        "Veg & Non-Veg Cuisines",
+        "Event Management"
+      ]
+    },
+    "needs_review": true
+  },
+  {
+    "file": "WhatsApp Image 2026-11-08 at 12.42.20 AM.jpeg",
+    "ocr_conf": 0.9633,
+    "seg_count": 12,
+    "steps": [
+      "resize_optimal_ocr",
+      "grayscale_analysis",
+      "bilateral_noise_removal",
+      "contrast_verified"
+    ],
+    "raw_text": "B.Vinod Jain\nMob:9844505692|8971499544\nPh:41247148|Centrex:2148\nScan for location\nMEXIGO VARDHAMAN SCALES\nEVERYCOUNT MRTTERS Dealers in: All types of Weighing Scales, Counting Machine\nSafe Lockers, Electronic & Hand Operating Machine\nEssae METTLER\nTOLEDO CONTECH MAXSELL\nViBRA SAnsui\n#12, 2nd Cross, R.T. Street, (B.T. Street) Anchepet, Bangalore-560 053\nEmail vardhamanscales@yahoo.in",
+    "extracted": {
+      "full_name": "B. Vinod Jain",
+      "first_name": "B.",
+      "last_name": "Vinod Jain",
+      "company_name": "MEXIGO VARDHAMAN SCALES",
+      "designation": null,
+      "phone": "+919844505692",
+      "raw_phone": "9844505692",
+      "alternate_phone": "+918971499544",
+      "raw_alternate_phone": "8971499544",
+      "email": "vardhamanscales@yahoo.in",
+      "website": null,
+      "address": "#12, 2nd Cross, R.T. Street, (B.T. Street) Anchepet, Bangalore-560 053",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560053",
+      "country": "India",
+      "education": null,
+      "linkedin_url": null,
+      "other_information": [
+        "Ph:41247148|Centrex:2148",
+        "Scan for location",
+        "EVERYCOUNT MRTTERS Dealers in: All types of Weighing Scales, Counting Machine",
+        "Safe Lockers, Electronic & Hand Operating Machine",
+        "Essae METTLER",
+        "TOLEDO CONTECH MAXSELL",
+        "ViBRA SAnsui"
+      ]
+    },
+    "needs_review": false
+  },
+  {
+    "file": "WhatsApp Image 2026-11-08 at 12.42.40 AM.jpeg",
+    "ocr_conf": 0.9793,
+    "seg_count": 9,
+    "steps": [
+      "resize_optimal_ocr",
+      "grayscale_analysis",
+      "bilateral_noise_removal",
+      "contrast_verified"
+    ],
+    "raw_text": "ALAUDDIN\n7676573131\nAksa\nTAILORS\nSpecialist in: Pant Shirt,\nJhubba Pyjama & School Uniforms\n1st Floor, 1st Street,\nJumma Masjid Road, Shivajinagar,\nBangalore 560 051. Cell: 8951429821",
+    "extracted": {
+      "full_name": "ALAUDDIN",
+      "first_name": "ALAUDDIN",
+      "last_name": null,
+      "company_name": "Aksa TAILORS",
+      "designation": null,
+      "phone": "+917676573131",
+      "raw_phone": "7676573131",
+      "alternate_phone": "+918951429821",
+      "raw_alternate_phone": "8951429821",
+      "email": null,
+      "website": null,
+      "address": "1st Floor, 1st Street, Jumma Masjid Road, Shivajinagar, Bangalore 560 051.",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560051",
+      "country": "India",
+      "education": null,
+      "linkedin_url": null,
+      "other_information": [
+        "Specialist in: Pant Shirt,",
+        "Jhubba Pyjama & School Uniforms"
+      ]
+    },
+    "needs_review": false
+  },
+  {
+    "file": "WhatsApp Image 2026-11-08 at 12.42.53 AM.jpeg",
+    "ocr_conf": 0.9782,
+    "seg_count": 14,
+    "steps": [
+      "resize_optimal_ocr",
+      "grayscale_analysis",
+      "bilateral_noise_removal",
+      "contrast_verified"
+    ],
+    "raw_text": "INAMDAR CLINIC ANDPHARMA\nNo.36, B Cooks Road,\nThimmiah Road Cross,\nShivaji Nagar, Bangalore 560051\nDr.Ayesha Siddiqa\nFamily Physician\nReg No.2228\nPh No.+91 9206380745\nDr.Saad\nFamily Physician\nLOCATION\nReg No.2533\nPhNo.+919110818769\nEmail ID:saadbininamdarkd@gmail.com",
+    "extracted": {
+      "full_name": "Dr. Ayesha Siddiqa",
+      "first_name": "Ayesha",
+      "last_name": "Siddiqa",
+      "company_name": "INAMDAR CLINIC ANDPHARMA",
+      "designation": "Family Physician",
+      "phone": "+919206380745",
+      "raw_phone": "+91 9206380745",
+      "alternate_phone": "+919110818769",
+      "raw_alternate_phone": "+919110818769",
+      "email": "saadbininamdarkd@gmail.com",
+      "website": null,
+      "address": "No.36, B Cooks Road, Thimmiah Road Cross, Shivaji Nagar, Bangalore 560051",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postal_code": "560051",
+      "country": "India",
+      "education": null,
+      "linkedin_url": null,
+      "other_information": [
+        "Reg No.2228",
+        "Dr.Saad",
+        "Family Physician",
+        "LOCATION",
+        "Reg No.2533"
+      ]
+    },
+    "needs_review": false
+  },
+  {
+    "file": "WhatsApp Image 2026-11-08 at 12.43.29 AM.jpeg",
+    "ocr_conf": 0.946,
+    "seg_count": 7,
+    "steps": [
+      "resize_optimal_ocr",
+      "grayscale_analysis",
+      "bilateral_noise_removal",
+      "dark_card_lab_clahe",
+      "unsharp_mask_sharpening"
+    ],
+    "raw_text": "S.M.Adavani\nM.K.Metri\nBBM,LLB\nB.Com,LLM,MBA\nLegal Consultants For:\nCIVILICRIMINALFAMILYIMATRIMONIAL CASES\nRERAIIPRI COMPANY LAWS",
+    "extracted": {
+      "full_name": "S.M. Adavani",
+      "first_name": "S.M.",
+      "last_name": "Adavani",
+      "company_name": null,
+      "designation": "Legal Consultants",
+      "phone": null,
+      "raw_phone": null,
+      "alternate_phone": null,
+      "raw_alternate_phone": null,
+      "email": null,
+      "website": null,
+      "address": null,
+      "city": null,
+      "state": null,
+      "postal_code": null,
+      "country": null,
+      "education": "BBM,LLB",
+      "linkedin_url": null,
+      "other_information": [
+        "M.K.Metri",
+        "B.Com,LLM,MBA",
+        "CIVILICRIMINALFAMILYIMATRIMONIAL CASES",
+        "RERAIIPRI COMPANY LAWS"
+      ]
+    },
+    "needs_review": true
+  }
+]

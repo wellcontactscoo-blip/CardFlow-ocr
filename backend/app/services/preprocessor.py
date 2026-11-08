@@ -100,7 +100,10 @@ def _estimate_and_correct_skew(image: np.ndarray) -> tuple[np.ndarray, float]:
 
     angles: list[float] = []
     for line in lines:
-        x1, y1, x2, y2 = line[0]
+        coords = np.asarray(line).reshape(-1)
+        if coords.size < 4:
+            continue
+        x1, y1, x2, y2 = int(coords[0]), int(coords[1]), int(coords[2]), int(coords[3])
         if x2 == x1:
             continue
         angle = float(np.degrees(np.arctan2(y2 - y1, x2 - x1)))
@@ -128,7 +131,7 @@ def _estimate_and_correct_skew(image: np.ndarray) -> tuple[np.ndarray, float]:
 
 
 def _resize_for_ocr(
-    image: np.ndarray, min_long_side: int = 900, max_long_side: int = 1280
+    image: np.ndarray, min_long_side: int = 900, max_long_side: int = 1400
 ) -> tuple[np.ndarray, bool]:
     """Resize image so the longer dimension falls within optimal OCR resolution bounds."""
     h, w = image.shape[:2]
@@ -179,15 +182,16 @@ def preprocess_card_image(
         img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
         steps.append("rotate_270_cw")
 
-    # 2. Card boundary detection & perspective warp
-    img, boundary_detected = _detect_and_warp_card(img)
-    if boundary_detected:
-        steps.append("card_boundary_perspective_warp")
+    # 2. Preserve full card frame (avoid cropping two-tone footer/header strips)
+    boundary_detected = False
 
-    # 3. Automatic skew correction
-    img, deskew_angle = _estimate_and_correct_skew(img)
-    if abs(deskew_angle) >= 0.5:
-        steps.append(f"deskew_{deskew_angle}deg")
+    # 3. Automatic skew correction (only on horizontal cards with mild skew)
+    if img.shape[1] >= img.shape[0]:
+        img, deskew_angle = _estimate_and_correct_skew(img)
+        if abs(deskew_angle) >= 0.5:
+            steps.append(f"deskew_{deskew_angle}deg")
+    else:
+        deskew_angle = 0.0
 
     # 4. Resize for optimal OCR character height
     img, resized = _resize_for_ocr(img)
@@ -198,35 +202,24 @@ def preprocess_card_image(
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     steps.append("grayscale_analysis")
 
-    # 6. Check for dark background card (light text on dark card)
+    # 6. Check for dark background card (light/gold text on dark card)
     mean_lum = float(np.mean(gray))
     std_lum = float(np.std(gray))
     is_dark = mean_lum < 85.0
-    if is_dark:
-        inv_gray = cv2.bitwise_not(gray)
-        steps.append("dark_card_inversion")
-        denoised = cv2.bilateralFilter(inv_gray, d=3, sigmaColor=15, sigmaSpace=15)
-        steps.append("bilateral_noise_removal")
-        clahe = cv2.createCLAHE(clipLimit=1.2, tileGridSize=(8, 8))
-        enhanced = clahe.apply(denoised)
-        steps.append("clahe_contrast_enhancement")
-        processed_bgr = cv2.cvtColor(enhanced, cv2.COLOR_GRAY2BGR)
+    denoised_bgr = cv2.bilateralFilter(img, d=3, sigmaColor=12, sigmaSpace=12)
+    steps.append("bilateral_noise_removal")
+    if is_dark or std_lum < 32.0:
+        lab = cv2.cvtColor(denoised_bgr, cv2.COLOR_BGR2LAB)
+        l_ch, a_ch, b_ch = cv2.split(lab)
+        clahe = cv2.createCLAHE(clipLimit=1.3 if is_dark else 1.2, tileGridSize=(8, 8))
+        l_ch = clahe.apply(l_ch)
+        steps.append("dark_card_lab_clahe" if is_dark else "clahe_contrast_enhancement")
+        processed_bgr = cv2.cvtColor(
+            cv2.merge((l_ch, a_ch, b_ch)), cv2.COLOR_LAB2BGR
+        )
     else:
-        # Preserve color channels in LAB space while gently denoising & enhancing L channel
-        denoised_bgr = cv2.bilateralFilter(img, d=3, sigmaColor=12, sigmaSpace=12)
-        steps.append("bilateral_noise_removal")
-        if std_lum < 32.0:
-            lab = cv2.cvtColor(denoised_bgr, cv2.COLOR_BGR2LAB)
-            l_ch, a_ch, b_ch = cv2.split(lab)
-            clahe = cv2.createCLAHE(clipLimit=1.2, tileGridSize=(8, 8))
-            l_ch = clahe.apply(l_ch)
-            steps.append("clahe_contrast_enhancement")
-            processed_bgr = cv2.cvtColor(
-                cv2.merge((l_ch, a_ch, b_ch)), cv2.COLOR_LAB2BGR
-            )
-        else:
-            steps.append("contrast_verified")
-            processed_bgr = denoised_bgr
+        steps.append("contrast_verified")
+        processed_bgr = denoised_bgr
 
     # 7. Gentle unsharp masking when image is soft
     lap_var = float(cv2.Laplacian(gray, cv2.CV_64F).var())

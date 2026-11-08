@@ -82,22 +82,34 @@ def process_single_scan_job(scan_id: str, rotation_degrees: int = 0) -> None:
 
         # Step 1: OpenCV Preprocessing (preserves original image untouched)
         prep = preprocess_card_image(raw_bytes, rotation_degrees=rotation_degrees)
+
+        # Step 2: Local PaddleOCR Execution (auto-orients 90/180/270 deg cards upright)
+        ocr_service = OcrEngineService.get_instance()
+        ocr_result = ocr_service.run_ocr(prep.processed_image)
+
+        upright_img = ocr_result.get("upright_image")
+        proc_jpeg = prep.processed_jpeg_bytes
+        if upright_img is not None and upright_img.shape[:2] != prep.processed_shape:
+            import cv2 as _cv2
+
+            ok_enc, enc_buf = _cv2.imencode(
+                ".jpg", upright_img, [int(_cv2.IMWRITE_JPEG_QUALITY), 95]
+            )
+            if ok_enc:
+                proc_jpeg = enc_buf.tobytes()
+
         proc_rel_path = save_to_private_bucket(
             "visiting-cards-processed",
             scan.user_id,
             scan.id,
             "processed.jpg",
-            prep.processed_jpeg_bytes,
+            proc_jpeg,
         )
-
-        # Step 2: Local PaddleOCR Execution
-        ocr_service = OcrEngineService.get_instance()
-        ocr_result = ocr_service.run_ocr(prep.processed_image)
 
         # Step 3: Hybrid Information Extraction & Separate Confidence Scoring
         extraction = extract_contact_from_ocr(
             ocr_result["segments"],
-            image_shape=prep.processed_shape,
+            image_shape=ocr_result.get("upright_shape", prep.processed_shape),
         )
 
         scan.processed_image_path = proc_rel_path
