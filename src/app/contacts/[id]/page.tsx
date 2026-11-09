@@ -633,6 +633,7 @@ export default function ContactDetailPage() {
                 type="submit"
                 variant="primary"
                 size="lg"
+                className="w-full sm:w-auto"
                 isLoading={isSaving}
                 leftIcon={<Save className="w-4 h-4 text-[#19C6B3]" />}
               >

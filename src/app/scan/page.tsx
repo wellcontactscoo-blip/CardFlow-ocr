@@ -225,17 +225,18 @@ export default function SingleCardScannerPage() {
         </div>
 
         {/* Sample Cards Quick Bar */}
-        <div className="bg-white border border-[#DDE4F0] rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="bg-white border border-[#DDE4F0] rounded-xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
           <div className="flex items-center gap-2 text-xs font-semibold text-[#101F50]">
             <Sparkles className="w-4 h-4 text-[#19C6B3] shrink-0" />
             <span>Quick Test with Sample Cards:</span>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-stretch sm:items-center gap-2">
             {SAMPLE_CARDS.map((s) => (
               <Button
                 key={s.path}
                 variant="outline"
                 size="sm"
+                className="w-full sm:w-auto justify-center"
                 onClick={() => handleLoadSampleCard(s.path, s.label)}
               >
                 {s.label}
@@ -297,9 +298,10 @@ export default function SingleCardScannerPage() {
               images are preserved in private storage.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-3 mt-6">
               <Button
                 variant="primary"
+                className="w-full sm:w-auto"
                 onClick={() => fileInputRef.current?.click()}
                 leftIcon={<Upload className="w-4 h-4" />}
               >
@@ -307,6 +309,7 @@ export default function SingleCardScannerPage() {
               </Button>
               <Button
                 variant="secondary"
+                className="w-full sm:w-auto"
                 onClick={startLiveCamera}
                 leftIcon={<Camera className="w-4 h-4" />}
               >
@@ -316,13 +319,13 @@ export default function SingleCardScannerPage() {
           </div>
         ) : (
           /* Preview, Rotate, Crop & Submit Panel */
-          <div className="bg-white border border-[#DDE4F0] rounded-xl p-6 space-y-5">
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#DDE4F0]">
-              <div>
+          <div className="bg-white border border-[#DDE4F0] rounded-xl p-4 sm:p-6 space-y-4 sm:space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#DDE4F0]">
+              <div className="min-w-0">
                 <h2 className="text-sm font-semibold text-[#101F50]">
                   Card Preview & Orientation
                 </h2>
-                <p className="text-xs text-[#5A6782]">
+                <p className="text-xs text-[#5A6782] truncate">
                   {selectedFile.name} (
                   {(selectedFile.size / 1024).toFixed(1)} KB)
                 </p>
@@ -344,7 +347,7 @@ export default function SingleCardScannerPage() {
                   onClick={() => setCropTight((v) => !v)}
                   leftIcon={<Crop className="w-3.5 h-3.5" />}
                 >
-                  {cropTight ? "Trim Border Active" : "Trim Outer Border"}
+                  {cropTight ? "Trim Active" : "Trim Border"}
                 </Button>
                 <Button
                   variant="ghost"
@@ -361,7 +364,7 @@ export default function SingleCardScannerPage() {
               </div>
             </div>
 
-            <div className="bg-[#F3F6FB] border border-[#DDE4F0] rounded-xl p-6 flex items-center justify-center min-h-[280px] overflow-hidden">
+            <div className="bg-[#F3F6FB] border border-[#DDE4F0] rounded-xl p-3 sm:p-6 flex items-center justify-center min-h-[220px] sm:min-h-[280px] overflow-hidden">
               {previewUrl && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -372,7 +375,7 @@ export default function SingleCardScannerPage() {
                       cropTight ? 1.08 : 1
                     })`,
                   }}
-                  className="max-h-80 w-auto object-contain rounded-lg shadow-sm transition-transform duration-200"
+                  className="max-h-60 sm:max-h-80 max-w-full w-auto object-contain rounded-lg shadow-sm transition-transform duration-200"
                 />
               )}
             </div>
@@ -380,10 +383,10 @@ export default function SingleCardScannerPage() {
             {isProcessing && (
               <div
                 role="status"
-                className="p-4 rounded-xl bg-blue-50 border border-blue-200 flex items-center gap-3"
+                className="p-3.5 sm:p-4 rounded-xl bg-blue-50 border border-blue-200 flex items-center gap-3"
               >
                 <div className="w-5 h-5 border-2 border-[#3478F6] border-t-transparent rounded-full animate-spin shrink-0" />
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs font-semibold text-[#101F50]">
                     Processing Visiting Card...
                   </p>
@@ -394,9 +397,10 @@ export default function SingleCardScannerPage() {
               </div>
             )}
 
-            <div className="flex items-center justify-end gap-3 pt-2">
+            <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-2.5 sm:gap-3 pt-2">
               <Button
                 variant="outline"
+                className="w-full sm:w-auto"
                 disabled={isProcessing}
                 onClick={() => {
                   setSelectedFile(null);
@@ -408,6 +412,7 @@ export default function SingleCardScannerPage() {
               <Button
                 variant="primary"
                 size="lg"
+                className="w-full sm:w-auto"
                 isLoading={isProcessing}
                 onClick={handleSubmitScan}
                 leftIcon={

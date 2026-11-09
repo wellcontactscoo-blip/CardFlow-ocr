@@ -132,7 +132,7 @@ def _confidence_entry(
 
 
 SPECIALTY_LINE_REGEX = re.compile(
-    r"^\s*(?:dealers|specialist|specialists|deals|manufacturers|wholesalers)\s+in\b",
+    r"\b(?:dealers?|specialists?|deals|manufacturers|wholesalers)\s*in\s*[:\-]|\b(?:dealers?|specialists?)\s+in\b",
     re.IGNORECASE,
 )
 
@@ -164,6 +164,14 @@ def _normalize_camelcase_name(text: str) -> str:
     out = re.sub(r"([a-z]{2,})([A-Z][a-z]{2,})", r"\1 \2", text)
     out = re.sub(r"\b(Dr|Mr|Mrs|Ms|Prof|Er|Adv)\.([A-Z])", r"\1. \2", out, flags=re.I)
     out = re.sub(r"((?:[A-Z]\.){1,3})([A-Z][a-z]+)", r"\1 \2", out)
+    out = re.sub(r"([A-Za-z])&([A-Za-z])", r"\1 & \2", out)
+    out = re.sub(
+        r"([A-Z]{3,})(SCALES|JEWELS|CLINIC|PHARMA|TECHNOLOGIES|CATERERS|TAILORS|ASSOCIATES|ENTERPRISES|SOLUTIONS|PVT|LTD)\b",
+        r"\1 \2",
+        out,
+    )
+    out = re.sub(r"\b(PVT)(LTD)\b", r"\1 \2", out)
+    out = re.sub(r"\b(CLINIC)(AND)(PHARMA)\b", r"\1 \2 \3", out)
     return out
 
 
@@ -395,7 +403,7 @@ def extract_contact_from_ocr(
 
     for seg in segments:
         idx = int(seg.get("reading_order", 0))
-        text = str(seg.get("text", "")).strip()
+        text = _normalize_camelcase_name(str(seg.get("text", "")).strip())
         ocr_conf = float(seg.get("confidence", 0.85))
         if not text:
             continue
@@ -578,7 +586,8 @@ def extract_contact_from_ocr(
                         )
             continue
 
-        text = raw_seg_text
+        text = _normalize_camelcase_name(raw_seg_text)
+        text = re.sub(r"^\s*Scan\s+for\s+location\s+", "", text, flags=re.I).strip()
         ocr_conf = float(seg.get("confidence", 0.85))
         bbox = seg.get("bbox", [0, 0, 100, 30])
         y_min = float(bbox[1]) if len(bbox) >= 4 else 0.0

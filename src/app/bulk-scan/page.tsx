@@ -178,10 +178,11 @@ export default function BulkScannerPage() {
               workers process each card asynchronously.
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
             <Button
               variant="outline"
               size="sm"
+              className="w-full sm:w-auto"
               onClick={() => handleLoadSampleBatch(5)}
               leftIcon={<Sparkles className="w-3.5 h-3.5 text-[#19C6B3]" />}
             >
@@ -190,6 +191,7 @@ export default function BulkScannerPage() {
             <Button
               variant="outline"
               size="sm"
+              className="w-full sm:w-auto"
               onClick={() => handleLoadSampleBatch(10)}
               leftIcon={<Sparkles className="w-3.5 h-3.5 text-[#3478F6]" />}
             >
@@ -306,7 +308,7 @@ export default function BulkScannerPage() {
                 ))}
               </div>
 
-              <div className="pt-4 border-t border-[#DDE4F0] flex items-center justify-between gap-4">
+              <div className="pt-4 border-t border-[#DDE4F0] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-xs text-[#5A6782]">
                   <AlertCircle className="w-4 h-4 text-[#3478F6] shrink-0" />
                   <span>
@@ -317,6 +319,7 @@ export default function BulkScannerPage() {
                 <Button
                   variant="primary"
                   size="lg"
+                  className="w-full sm:w-auto"
                   isLoading={isSubmitting}
                   onClick={handleSubmitBatch}
                   rightIcon={<ArrowRight className="w-4 h-4" />}

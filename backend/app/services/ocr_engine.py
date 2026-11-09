@@ -1,6 +1,8 @@
+import gc
 import os
 import threading
 from typing import Any
+import cv2
 import numpy as np
 
 # Disable OneDNN / MKLDNN dynamic shape cache bug on Windows CPU in PaddlePaddle 3.x
@@ -12,8 +14,9 @@ from ..config import OCR_LANGUAGE
 
 class OcrEngineService:
     """
-    Singleton wrapper around local PaddleOCR (PP-OCRv5) with thread-safe execution
-    and structured bounding-box, polygon, confidence, and reading-order extraction.
+    Singleton wrapper around local PaddleOCR / PP-OCR ONNX (RapidOCR) with thread-safe
+    execution, automatic 90/270-degree card orientation correction, and structured
+    bounding-box, polygon, confidence, and reading-order extraction.
     """
 
     _instance: "OcrEngineService | None" = None
@@ -22,6 +25,7 @@ class OcrEngineService:
     def __init__(self, lang: str = OCR_LANGUAGE) -> None:
         self.lang = lang
         self._ocr: Any = None
+        self._backend_type: str = "uninitialized"
         self._infer_lock = threading.Lock()
 
     @classmethod
@@ -36,15 +40,28 @@ class OcrEngineService:
         if self._ocr is None:
             with self._infer_lock:
                 if self._ocr is None:
+                    prefer_paddle = (
+                        os.getenv("OCR_ENGINE_BACKEND", "auto").lower() == "paddle"
+                    )
+                    if not prefer_paddle:
+                        try:
+                            from rapidocr_onnxruntime import RapidOCR
+
+                            self._ocr = RapidOCR()
+                            self._backend_type = "rapidocr_onnx"
+                            return self._ocr
+                        except ImportError:
+                            pass
+
                     from paddleocr import PaddleOCR
 
-                    low_mem = os.getenv("OCR_LOW_MEMORY_MODE", "0").lower() in (
+                    low_mem = os.getenv("OCR_LOW_MEMORY_MODE", "1").lower() in (
                         "1",
                         "true",
                         "yes",
                     )
                     ocr_kwargs: dict[str, Any] = {
-                        "use_doc_orientation_classify": True,
+                        "use_doc_orientation_classify": not low_mem,
                         "use_doc_unwarping": False,
                         "use_textline_orientation": False,
                         "enable_mkldnn": False,
@@ -55,61 +72,101 @@ class OcrEngineService:
                         ocr_kwargs["text_recognition_model_name"] = "PP-OCRv5_mobile_rec"
 
                     self._ocr = PaddleOCR(**ocr_kwargs)
+                    self._backend_type = "paddleocr"
         return self._ocr
 
     def warmup(self) -> None:
         self._ensure_loaded()
 
+    def _run_rapidocr_with_orientation(
+        self, engine: Any, image_bgr: np.ndarray
+    ) -> tuple[list[Any], np.ndarray]:
+        """
+        Run PP-OCR ONNX (RapidOCR) and automatically detect & correct 90°/270° rotated
+        portrait photos of horizontal business cards without requiring a separate heavy
+        orientation classification model.
+        """
+        with self._infer_lock:
+            res, _ = engine(image_bgr)
+        res = res or []
+
+        vert_count = 0
+        horiz_count = 0
+        for item in res:
+            box, txt, _score = item[0], str(item[1]).strip(), float(item[2])
+            if len(txt) < 2:
+                continue
+            xs = [p[0] for p in box]
+            ys = [p[1] for p in box]
+            w = max(xs) - min(xs)
+            h = max(ys) - min(ys)
+            if h > 1.35 * w:
+                vert_count += 1
+            elif w > 1.35 * h:
+                horiz_count += 1
+
+        is_portrait_img = image_bgr.shape[0] > 1.15 * image_bgr.shape[1]
+        needs_rotation = vert_count > horiz_count or (
+            is_portrait_img and len(res) == 0
+        )
+
+        if not needs_rotation:
+            return res, image_bgr
+
+        # Most mobile portrait photos of horizontal cards are rotated 90° CW,
+        # which requires a 270° (90° CCW) rotation to become upright.
+        img_270 = cv2.rotate(image_bgr, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        with self._infer_lock:
+            res_270, _ = engine(img_270)
+        res_270 = res_270 or []
+        avg_270 = (
+            float(np.mean([float(r[2]) for r in res_270])) if res_270 else 0.0
+        )
+
+        if avg_270 >= 0.82 and len(res_270) >= max(2, len(res)):
+            return res_270, img_270
+
+        # Also test 90° CW in case the user rotated the phone the opposite way
+        img_90 = cv2.rotate(image_bgr, cv2.ROTATE_90_CLOCKWISE)
+        with self._infer_lock:
+            res_90, _ = engine(img_90)
+        res_90 = res_90 or []
+        avg_90 = float(np.mean([float(r[2]) for r in res_90])) if res_90 else 0.0
+
+        score_270 = avg_270 * min(len(res_270), 15)
+        score_90 = avg_90 * min(len(res_90), 15)
+
+        if score_90 > score_270 and len(res_90) > 0:
+            return res_90, img_90
+        if len(res_270) > 0:
+            return res_270, img_270
+        return res, image_bgr
+
     def run_ocr(self, image_bgr: np.ndarray) -> dict[str, Any]:
         """
-        Execute PaddleOCR on a preprocessed BGR image array and return:
+        Execute PP-OCR on a preprocessed BGR image array and return:
         - raw_ocr_text: newline-joined text in reading order
         - segments: list of { text, bbox, polygon, confidence, reading_order }
         - mean_confidence: average OCR confidence across detected segments
+        - upright_shape: (height, width) of the upright card image
+        - upright_image: upright BGR image array
         """
         ocr = self._ensure_loaded()
-        with self._infer_lock:
-            results = list(ocr.predict(image_bgr))
-
-        if not results:
-            return {
-                "raw_ocr_text": "",
-                "segments": [],
-                "mean_confidence": 0.0,
-            }
-
-        page = results[0]
-        rec_texts = (
-            page.get("rec_texts", [])
-            if hasattr(page, "get")
-            else getattr(page, "rec_texts", [])
-        ) or []
-        rec_scores = (
-            page.get("rec_scores", [])
-            if hasattr(page, "get")
-            else getattr(page, "rec_scores", [])
-        ) or []
-        dt_polys = (
-            page.get("rec_polys")
-            if hasattr(page, "get") and page.get("rec_polys") is not None
-            else (
-                page.get("dt_polys", [])
-                if hasattr(page, "get")
-                else getattr(page, "dt_polys", [])
-            )
-        ) or []
-
         raw_items: list[dict[str, Any]] = []
-        for idx, text in enumerate(rec_texts):
-            cleaned_text = str(text).strip()
-            if not cleaned_text:
-                continue
+        upright_image = image_bgr
+        upright_shape = image_bgr.shape[:2]
 
-            score = float(rec_scores[idx]) if idx < len(rec_scores) else 0.0
-            poly_raw = dt_polys[idx] if idx < len(dt_polys) else None
-
-            if poly_raw is not None:
-                pts = np.array(poly_raw, dtype=float).reshape(-1, 2)
+        if self._backend_type == "rapidocr_onnx":
+            res_list, upright_image = self._run_rapidocr_with_orientation(
+                ocr, image_bgr
+            )
+            upright_shape = upright_image.shape[:2]
+            for item in res_list:
+                box, text, score = item[0], item[1], float(item[2])
+                cleaned_text = str(text).strip()
+                if not cleaned_text:
+                    continue
+                pts = np.array(box, dtype=float).reshape(-1, 2)
                 polygon = [
                     [int(round(pt[0])), int(round(pt[1]))] for pt in pts
                 ]
@@ -121,18 +178,90 @@ class OcrEngineService:
                     int(max(x_coords)),
                     int(max(y_coords)),
                 ]
-            else:
-                polygon = [[0, 0], [0, 0], [0, 0], [0, 0]]
-                bbox = [0, 0, 0, 0]
+                raw_items.append(
+                    {
+                        "text": cleaned_text,
+                        "bbox": bbox,
+                        "polygon": polygon,
+                        "confidence": round(min(max(score, 0.0), 1.0), 4),
+                    }
+                )
+        else:
+            with self._infer_lock:
+                results = list(ocr.predict(image_bgr))
 
-            raw_items.append(
-                {
-                    "text": cleaned_text,
-                    "bbox": bbox,
-                    "polygon": polygon,
-                    "confidence": round(min(max(score, 0.0), 1.0), 4),
-                }
-            )
+            if results:
+                page = results[0]
+                rec_texts = (
+                    page.get("rec_texts", [])
+                    if hasattr(page, "get")
+                    else getattr(page, "rec_texts", [])
+                ) or []
+                rec_scores = (
+                    page.get("rec_scores", [])
+                    if hasattr(page, "get")
+                    else getattr(page, "rec_scores", [])
+                ) or []
+                dt_polys = (
+                    page.get("rec_polys")
+                    if hasattr(page, "get") and page.get("rec_polys") is not None
+                    else (
+                        page.get("dt_polys", [])
+                        if hasattr(page, "get")
+                        else getattr(page, "dt_polys", [])
+                    )
+                ) or []
+
+                for idx, text in enumerate(rec_texts):
+                    cleaned_text = str(text).strip()
+                    if not cleaned_text:
+                        continue
+
+                    score = (
+                        float(rec_scores[idx]) if idx < len(rec_scores) else 0.0
+                    )
+                    poly_raw = dt_polys[idx] if idx < len(dt_polys) else None
+
+                    if poly_raw is not None:
+                        pts = np.array(poly_raw, dtype=float).reshape(-1, 2)
+                        polygon = [
+                            [int(round(pt[0])), int(round(pt[1]))] for pt in pts
+                        ]
+                        x_coords = [p[0] for p in polygon]
+                        y_coords = [p[1] for p in polygon]
+                        bbox = [
+                            int(min(x_coords)),
+                            int(min(y_coords)),
+                            int(max(x_coords)),
+                            int(max(y_coords)),
+                        ]
+                    else:
+                        polygon = [[0, 0], [0, 0], [0, 0], [0, 0]]
+                        bbox = [0, 0, 0, 0]
+
+                    raw_items.append(
+                        {
+                            "text": cleaned_text,
+                            "bbox": bbox,
+                            "polygon": polygon,
+                            "confidence": round(min(max(score, 0.0), 1.0), 4),
+                        }
+                    )
+
+                doc_prep = (
+                    page.get("doc_preprocessor_res")
+                    if hasattr(page, "get")
+                    else getattr(page, "doc_preprocessor_res", None)
+                )
+                if doc_prep is not None:
+                    out_img = (
+                        doc_prep.get("output_img")
+                        if hasattr(doc_prep, "get")
+                        else getattr(doc_prep, "output_img", None)
+                    )
+                    if out_img is not None and hasattr(out_img, "shape"):
+                        upright_shape = out_img.shape[:2]
+                        upright_image = out_img
 
         merged_items = _merge_same_line_segments(raw_items)
 
@@ -158,23 +287,7 @@ class OcrEngineService:
             else 0.0
         )
 
-        # Determine upright image dimensions after PaddleOCR doc orientation preprocessor
-        doc_prep = (
-            page.get("doc_preprocessor_res")
-            if hasattr(page, "get")
-            else getattr(page, "doc_preprocessor_res", None)
-        )
-        upright_shape = image_bgr.shape[:2]
-        upright_image = image_bgr
-        if doc_prep is not None:
-            out_img = (
-                doc_prep.get("output_img")
-                if hasattr(doc_prep, "get")
-                else getattr(doc_prep, "output_img", None)
-            )
-            if out_img is not None and hasattr(out_img, "shape"):
-                upright_shape = out_img.shape[:2]
-                upright_image = out_img
+        gc.collect()
 
         return {
             "raw_ocr_text": raw_ocr_text,
@@ -183,6 +296,7 @@ class OcrEngineService:
             "upright_shape": upright_shape,
             "upright_image": upright_image,
         }
+
 
 
 def _merge_same_line_segments(raw_items: list[dict[str, Any]]) -> list[dict[str, Any]]:

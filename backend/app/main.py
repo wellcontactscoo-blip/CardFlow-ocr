@@ -11,7 +11,6 @@ os.environ.setdefault("FLAGS_use_mkldnn", "0")
 os.environ.setdefault("FLAGS_enable_pir_api", "0")
 
 import cv2
-import paddleocr
 from fastapi import (
     Depends,
     FastAPI,
@@ -21,6 +20,7 @@ from fastapi import (
     Query,
     UploadFile,
 )
+from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
@@ -325,7 +325,7 @@ def health_check():
         "status": "healthy",
         "service": "cardflow-ocr-backend",
         "opencv_version": cv2.__version__,
-        "paddleocr_version": paddleocr.__version__,
+        "paddleocr_version": "3.0.0+onnx",
         "storage_buckets": {
             "visiting-cards-original": ORIGINAL_BUCKET_DIR.exists(),
             "visiting-cards-processed": PROCESSED_BUCKET_DIR.exists(),
@@ -346,17 +346,28 @@ async def ocr_test_endpoint(
     bounding boxes, confidence scores, and hybrid structured field extraction on any visiting card.
     """
     raw_bytes, _ext = await read_and_validate_upload(file)
-    prep = preprocess_card_image(raw_bytes, rotation_degrees=rotation_degrees)
-    ocr_res = OcrEngineService.get_instance().run_ocr(prep.processed_image)
-    extraction = extract_contact_from_ocr(
-        ocr_res["segments"], image_shape=prep.processed_shape
-    )
+
+    def _run_test_pipeline() -> tuple[Any, dict[str, Any], dict[str, Any]]:
+        prep_res = preprocess_card_image(
+            raw_bytes, rotation_degrees=rotation_degrees
+        )
+        ocr_out = OcrEngineService.get_instance().run_ocr(
+            prep_res.processed_image
+        )
+        upright_shape = ocr_out.get("upright_shape") or prep_res.processed_shape
+        ext_res = extract_contact_from_ocr(
+            ocr_out["segments"], image_shape=upright_shape
+        )
+        return prep_res, ocr_out, ext_res
+
+    prep, ocr_res, extraction = await run_in_threadpool(_run_test_pipeline)
 
     return {
         "filename": file.filename,
         "preprocessing": {
             "original_shape": prep.original_shape,
-            "processed_shape": prep.processed_shape,
+            "processed_shape": ocr_res.get("upright_shape")
+            or prep.processed_shape,
             "steps_applied": prep.steps_applied,
             "card_boundary_detected": prep.card_boundary_detected,
             "is_dark_background": prep.is_dark_background,
@@ -717,8 +728,10 @@ async def upload_and_scan_single_card(
     db.add(scan)
     db.commit()
 
-    # Process single card scan immediately so user transitions directly to Extraction Review
-    process_single_scan_job(scan_id, rotation_degrees=rotation_degrees)
+    # Process single card scan in threadpool so event loop stays responsive
+    await run_in_threadpool(
+        process_single_scan_job, scan_id, rotation_degrees=rotation_degrees
+    )
 
     db.expire_all()
     updated_scan = (

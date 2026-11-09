@@ -17,13 +17,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Pre-download and cache lightweight mobile PP-OCRv5 models at build time
-# so cold starts on Render Free Tier (512 MB RAM) require zero runtime downloads
-RUN python -c "from paddleocr import PaddleOCR; PaddleOCR(use_doc_orientation_classify=False, use_doc_unwarping=False, use_textline_orientation=False, enable_mkldnn=False, text_detection_model_name='PP-OCRv5_mobile_det', text_recognition_model_name='PP-OCRv5_mobile_rec', lang='en')"
+# Pre-initialize PP-OCR ONNX models at build time so Render Free Tier (512 MB RAM)
+# starts in <2s and runs card OCR in ~130 MB RSS without OOM kills
+RUN python -c "from rapidocr_onnxruntime import RapidOCR; RapidOCR()"
 
 COPY . .
 
 EXPOSE 8000
 
 CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
+
 

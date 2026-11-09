@@ -117,18 +117,20 @@ export default function DashboardPage() {
               manage contacts.
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-2.5">
-            <Link href="/scan">
+          <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2.5">
+            <Link href="/scan" className="w-full sm:w-auto">
               <Button
                 variant="primary"
+                className="w-full sm:w-auto"
                 leftIcon={<ScanLine className="w-4 h-4 text-[#19C6B3]" />}
               >
                 Scan Visiting Card
               </Button>
             </Link>
-            <Link href="/bulk-scan">
+            <Link href="/bulk-scan" className="w-full sm:w-auto">
               <Button
                 variant="secondary"
+                className="w-full sm:w-auto"
                 leftIcon={<Layers className="w-4 h-4" />}
               >
                 Upload Multiple Cards

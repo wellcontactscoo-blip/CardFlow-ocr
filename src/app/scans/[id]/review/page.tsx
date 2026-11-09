@@ -293,10 +293,11 @@ export default function ScanExtractionReviewPage() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               variant="outline"
               size="sm"
+              className="flex-1 sm:flex-none"
               isLoading={isRetrying}
               onClick={handleRetryOcr}
               leftIcon={<RefreshCw className="w-3.5 h-3.5" />}
@@ -306,6 +307,7 @@ export default function ScanExtractionReviewPage() {
             <Button
               variant="danger"
               size="sm"
+              className="flex-1 sm:flex-none"
               isLoading={isRejecting}
               onClick={handleRejectScan}
               leftIcon={<Trash2 className="w-3.5 h-3.5" />}
@@ -315,6 +317,7 @@ export default function ScanExtractionReviewPage() {
             <Button
               variant="primary"
               size="md"
+              className="w-full sm:w-auto"
               isLoading={isSaving}
               onClick={() => handleApproveAndSave()}
               leftIcon={
@@ -713,9 +716,10 @@ export default function ScanExtractionReviewPage() {
               />
             </div>
 
-            <div className="pt-4 border-t border-[#DDE4F0] flex items-center justify-end gap-3">
+            <div className="pt-4 border-t border-[#DDE4F0] flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
               <Button
                 variant="outline"
+                className="w-full sm:w-auto"
                 onClick={handleRejectScan}
                 isLoading={isRejecting}
               >
@@ -724,6 +728,7 @@ export default function ScanExtractionReviewPage() {
               <Button
                 variant="primary"
                 size="lg"
+                className="w-full sm:w-auto"
                 onClick={() => handleApproveAndSave()}
                 isLoading={isSaving}
                 leftIcon={
