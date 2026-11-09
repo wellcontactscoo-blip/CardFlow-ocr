@@ -12,19 +12,23 @@ import type {
   Tag,
 } from "@/types/database";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_OCR_API_URL || "http://127.0.0.1:8000";
+const API_BASE_URL = (
+  process.env.NEXT_PUBLIC_OCR_API_URL || "https://cardflow-ocr.onrender.com"
+)
+  .replace(/[\r\n\s]+/g, "")
+  .replace(/\/+$/, "");
 
 function getCookieToken(): string | null {
   if (typeof document === "undefined") return null;
   const match = document.cookie.match(/(?:^|;\s*)cardflow_access_token=([^;]*)/);
-  return match && match[1] ? decodeURIComponent(match[1]) : null;
+  return match && match[1] ? decodeURIComponent(match[1]).replace(/[\r\n\s]+/g, "") : null;
 }
 
 export function setAuthCookie(token: string) {
   if (typeof document === "undefined") return;
+  const cleanToken = token.replace(/[\r\n\s]+/g, "");
   document.cookie = `cardflow_access_token=${encodeURIComponent(
-    token
+    cleanToken
   )}; path=/; max-age=604800; SameSite=Lax`;
 }
 
@@ -40,21 +44,27 @@ async function getAuthHeaders(isFormData = false): Promise<HeadersInit> {
     headers["Content-Type"] = "application/json";
   }
 
-  if (isSupabaseConfigured()) {
-    const supabase = createBrowserSupabaseClient();
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (session?.access_token) {
-      headers["Authorization"] = `Bearer ${session.access_token}`;
-      return headers;
-    }
-  }
-
   const localToken = getCookieToken();
   if (localToken) {
     headers["Authorization"] = `Bearer ${localToken}`;
+    return headers;
   }
+
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = createBrowserSupabaseClient();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (session?.access_token) {
+        headers["Authorization"] = `Bearer ${session.access_token.replace(/[\r\n\s]+/g, "")}`;
+        return headers;
+      }
+    } catch {
+      // Fall back to cookie token if Supabase client fails
+    }
+  }
+
   return headers;
 }
 
@@ -147,17 +157,20 @@ export const api = {
     organization: Organization | null;
   }> {
     if (isSupabaseConfigured()) {
-      const supabase = createBrowserSupabaseClient();
-      const { data, error } = await supabase.auth.signUp({
-        email: payload.email,
-        password: payload.password,
-        options: {
-          data: { full_name: payload.full_name },
-        },
-      });
-      if (error) throw new Error(error.message);
-      if (data.session?.access_token) {
-        setAuthCookie(data.session.access_token);
+      try {
+        const supabase = createBrowserSupabaseClient();
+        const { data } = await supabase.auth.signUp({
+          email: payload.email,
+          password: payload.password,
+          options: {
+            data: { full_name: payload.full_name },
+          },
+        });
+        if (data.session?.access_token) {
+          setAuthCookie(data.session.access_token);
+        }
+      } catch {
+        // Proceed with primary backend registration
       }
     }
     const res = await request<{
@@ -181,14 +194,17 @@ export const api = {
     organization: Organization | null;
   }> {
     if (isSupabaseConfigured()) {
-      const supabase = createBrowserSupabaseClient();
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: payload.email,
-        password: payload.password,
-      });
-      if (error) throw new Error(error.message);
-      if (data.session?.access_token) {
-        setAuthCookie(data.session.access_token);
+      try {
+        const supabase = createBrowserSupabaseClient();
+        const { data } = await supabase.auth.signInWithPassword({
+          email: payload.email,
+          password: payload.password,
+        });
+        if (data.session?.access_token) {
+          setAuthCookie(data.session.access_token);
+        }
+      } catch {
+        // Proceed with primary backend login
       }
     }
     const res = await request<{
@@ -205,8 +221,12 @@ export const api = {
 
   async logout(): Promise<void> {
     if (isSupabaseConfigured()) {
-      const supabase = createBrowserSupabaseClient();
-      await supabase.auth.signOut();
+      try {
+        const supabase = createBrowserSupabaseClient();
+        await supabase.auth.signOut();
+      } catch {
+        // Ignore signOut errors
+      }
     }
     clearAuthCookie();
   },

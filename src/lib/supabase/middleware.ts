@@ -1,6 +1,6 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { getSupabaseAnonKey, isSupabaseConfigured } from "./client";
+import { getSupabaseAnonKey, getSupabaseUrl, isSupabaseConfigured } from "./client";
 
 const PUBLIC_PATHS = [
   "/login",
@@ -20,8 +20,9 @@ export async function updateSession(request: NextRequest) {
 
   if (isSupabaseConfigured()) {
     const anonKey = getSupabaseAnonKey()!;
+    const supabaseUrl = getSupabaseUrl()!;
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      supabaseUrl,
       anonKey,
       {
         cookies: {
