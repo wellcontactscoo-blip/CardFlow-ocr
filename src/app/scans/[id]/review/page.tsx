@@ -304,7 +304,7 @@ export default function ScanExtractionReviewPage() {
     processed_image_url: scan.processed_image_url,
     scan_date: scan.created_at,
     created_at: scan.created_at,
-    updated_at: scan.completed_at || scan.created_at,
+    updated_at: scan.created_at,
   };
 
   return (
