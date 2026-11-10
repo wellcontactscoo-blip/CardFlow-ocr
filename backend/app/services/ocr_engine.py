@@ -5,9 +5,15 @@ from typing import Any
 import cv2
 import numpy as np
 
-# Disable OneDNN / MKLDNN dynamic shape cache bug on Windows CPU in PaddlePaddle 3.x
+# Disable OneDNN / MKLDNN dynamic shape cache bug and prevent OpenMP thread spinlock
+# thrashing on fractional-CPU cloud containers (Render 0.1 vCPU Free Tier)
 os.environ.setdefault("FLAGS_use_mkldnn", "0")
 os.environ.setdefault("FLAGS_enable_pir_api", "0")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("OMP_WAIT_POLICY", "PASSIVE")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+cv2.setNumThreads(1)
 
 from ..config import OCR_LANGUAGE
 
@@ -47,7 +53,13 @@ class OcrEngineService:
                         try:
                             from rapidocr_onnxruntime import RapidOCR
 
-                            self._ocr = RapidOCR()
+                            self._ocr = RapidOCR(
+                                intra_op_num_threads=1,
+                                inter_op_num_threads=1,
+                                det_limit_side_len=736,
+                                det_limit_type="max",
+                                use_cls=False,
+                            )
                             self._backend_type = "rapidocr_onnx"
                             return self._ocr
                         except ImportError:
@@ -83,64 +95,70 @@ class OcrEngineService:
     ) -> tuple[list[Any], np.ndarray]:
         """
         Run PP-OCR ONNX (RapidOCR) and automatically detect & correct 90°/270° rotated
-        portrait photos of horizontal business cards without requiring a separate heavy
-        orientation classification model.
+        portrait photos of horizontal business cards using a fast 440px detection-only
+        probe (~60ms) before running full text recognition on the upright image.
         """
+        h, w = image_bgr.shape[:2]
+        probe_scale = min(1.0, 440.0 / float(max(h, w, 1)))
+        if probe_scale < 1.0:
+            probe_img = cv2.resize(
+                image_bgr,
+                (max(1, int(round(w * probe_scale))), max(1, int(round(h * probe_scale)))),
+                interpolation=cv2.INTER_AREA,
+            )
+        else:
+            probe_img = image_bgr
+
         with self._infer_lock:
-            res, _ = engine(image_bgr)
-        res = res or []
+            probe_boxes, _ = engine(
+                probe_img, use_det=True, use_cls=False, use_rec=False
+            )
+        probe_boxes = probe_boxes or []
 
         vert_count = 0
         horiz_count = 0
-        for item in res:
-            box, txt, _score = item[0], str(item[1]).strip(), float(item[2])
-            if len(txt) < 2:
-                continue
+        for box in probe_boxes:
             xs = [p[0] for p in box]
             ys = [p[1] for p in box]
-            w = max(xs) - min(xs)
-            h = max(ys) - min(ys)
-            if h > 1.35 * w:
+            bw = max(xs) - min(xs)
+            bh = max(ys) - min(ys)
+            if bh > 1.35 * bw:
                 vert_count += 1
-            elif w > 1.35 * h:
+            elif bw > 1.35 * bh:
                 horiz_count += 1
 
-        is_portrait_img = image_bgr.shape[0] > 1.15 * image_bgr.shape[1]
+        is_portrait_img = h > 1.15 * w
         needs_rotation = vert_count > horiz_count or (
-            is_portrait_img and len(res) == 0
+            is_portrait_img and len(probe_boxes) == 0
         )
 
         if not needs_rotation:
-            return res, image_bgr
+            with self._infer_lock:
+                res, _ = engine(image_bgr, use_det=True, use_cls=False, use_rec=True)
+            return res or [], image_bgr
 
-        # Most mobile portrait photos of horizontal cards are rotated 90° CW,
-        # which requires a 270° (90° CCW) rotation to become upright.
+        # Rotate 270° (90° CCW) to make 90°-CW portrait card photos upright
         img_270 = cv2.rotate(image_bgr, cv2.ROTATE_90_COUNTERCLOCKWISE)
         with self._infer_lock:
-            res_270, _ = engine(img_270)
+            res_270, _ = engine(img_270, use_det=True, use_cls=False, use_rec=True)
         res_270 = res_270 or []
         avg_270 = (
             float(np.mean([float(r[2]) for r in res_270])) if res_270 else 0.0
         )
 
-        if avg_270 >= 0.82 and len(res_270) >= max(2, len(res)):
+        if avg_270 >= 0.78 and len(res_270) >= 2:
             return res_270, img_270
 
-        # Also test 90° CW in case the user rotated the phone the opposite way
+        # Fallback: test 90° CW if the phone was rotated the opposite direction
         img_90 = cv2.rotate(image_bgr, cv2.ROTATE_90_CLOCKWISE)
         with self._infer_lock:
-            res_90, _ = engine(img_90)
+            res_90, _ = engine(img_90, use_det=True, use_cls=False, use_rec=True)
         res_90 = res_90 or []
         avg_90 = float(np.mean([float(r[2]) for r in res_90])) if res_90 else 0.0
 
-        score_270 = avg_270 * min(len(res_270), 15)
-        score_90 = avg_90 * min(len(res_90), 15)
-
-        if score_90 > score_270 and len(res_90) > 0:
+        if avg_90 * len(res_90) > avg_270 * len(res_270):
             return res_90, img_90
-        if len(res_270) > 0:
-            return res_270, img_270
-        return res, image_bgr
+        return res_270, img_270
 
     def run_ocr(self, image_bgr: np.ndarray) -> dict[str, Any]:
         """

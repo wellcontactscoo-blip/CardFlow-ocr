@@ -14,6 +14,9 @@ import {
   UserCheck,
   GitMerge,
   Tag as TagIcon,
+  MessageSquare,
+  Mail,
+  Phone,
 } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { Button } from "@/components/ui/Button";
@@ -24,10 +27,16 @@ import {
 } from "@/components/ui/ConfidenceBadge";
 import { Modal } from "@/components/ui/Modal";
 import { Skeleton } from "@/components/ui/EmptyState";
+import {
+  EmailActionModal,
+  WhatsAppActionModal,
+} from "@/components/contacts/CommunicationModals";
 import { api } from "@/lib/api";
+import { normalizePhoneForTel } from "@/lib/utils";
 import { useToast } from "@/context/ToastContext";
 import type {
   CardScan,
+  Contact,
   DuplicateMatch,
   ExtractedContactFields,
   Tag,
@@ -67,6 +76,8 @@ export default function ScanExtractionReviewPage() {
   const [showProcessedImage, setShowProcessedImage] = useState(false);
   const [showRawOcr, setShowRawOcr] = useState(false);
   const [compareModalOpen, setCompareModalOpen] = useState(false);
+  const [waOpen, setWaOpen] = useState(false);
+  const [emailOpen, setEmailOpen] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -265,6 +276,36 @@ export default function ScanExtractionReviewPage() {
   const displayedImageUrl = showProcessedImage
     ? scan.processed_image_url || scan.original_image_url
     : scan.original_image_url;
+  const telHref = normalizePhoneForTel(fields.phone || fields.alternate_phone);
+  const previewContact: Contact = {
+    id: scan.id,
+    user_id: scan.user_id,
+    organization_id: scan.organization_id,
+    scan_id: scan.id,
+    full_name: fields.full_name || null,
+    first_name: fields.first_name || null,
+    last_name: fields.last_name || null,
+    company_name: fields.company_name || null,
+    designation: fields.designation || null,
+    phone: fields.phone || null,
+    alternate_phone: fields.alternate_phone || null,
+    email: fields.email || null,
+    website: fields.website || null,
+    address: fields.address || null,
+    city: fields.city || null,
+    state: fields.state || null,
+    postal_code: fields.postal_code || null,
+    country: fields.country || null,
+    education: fields.education || null,
+    linkedin_url: fields.linkedin_url || null,
+    additional_information: {},
+    notes: notes || null,
+    original_image_url: scan.original_image_url,
+    processed_image_url: scan.processed_image_url,
+    scan_date: scan.created_at,
+    created_at: scan.created_at,
+    updated_at: scan.completed_at || scan.created_at,
+  };
 
   return (
     <AppShell>
@@ -294,6 +335,40 @@ export default function ScanExtractionReviewPage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            {(fields.phone || fields.alternate_phone) && (
+              <Button
+                variant="accent"
+                size="sm"
+                className="flex-1 sm:flex-none"
+                onClick={() => setWaOpen(true)}
+                leftIcon={<MessageSquare className="w-3.5 h-3.5" />}
+              >
+                WhatsApp
+              </Button>
+            )}
+            {fields.email && (
+              <Button
+                variant="secondary"
+                size="sm"
+                className="flex-1 sm:flex-none"
+                onClick={() => setEmailOpen(true)}
+                leftIcon={<Mail className="w-3.5 h-3.5" />}
+              >
+                Email
+              </Button>
+            )}
+            {telHref && (
+              <a href={`tel:${telHref}`} className="flex-1 sm:flex-none">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full"
+                  leftIcon={<Phone className="w-3.5 h-3.5 text-[#101F50]" />}
+                >
+                  Call
+                </Button>
+              </a>
+            )}
             <Button
               variant="outline"
               size="sm"
@@ -836,6 +911,18 @@ export default function ScanExtractionReviewPage() {
           </div>
         )}
       </Modal>
+
+      <WhatsAppActionModal
+        contact={previewContact}
+        isOpen={waOpen}
+        onClose={() => setWaOpen(false)}
+      />
+
+      <EmailActionModal
+        contact={previewContact}
+        isOpen={emailOpen}
+        onClose={() => setEmailOpen(false)}
+      />
     </AppShell>
   );
 }

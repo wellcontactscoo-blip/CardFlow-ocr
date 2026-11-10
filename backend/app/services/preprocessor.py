@@ -131,7 +131,7 @@ def _estimate_and_correct_skew(image: np.ndarray) -> tuple[np.ndarray, float]:
 
 
 def _resize_for_ocr(
-    image: np.ndarray, min_long_side: int = 900, max_long_side: int = 1400
+    image: np.ndarray, min_long_side: int = 760, max_long_side: int = 960
 ) -> tuple[np.ndarray, bool]:
     """Resize image so the longer dimension falls within optimal OCR resolution bounds."""
     h, w = image.shape[:2]
