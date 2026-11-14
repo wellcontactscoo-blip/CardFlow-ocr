@@ -110,6 +110,8 @@ export interface CardScan {
   processed_image_path: string | null;
   original_image_url?: string | null; // Signed URL
   processed_image_url?: string | null; // Signed URL
+  back_original_image_url?: string | null; // Signed URL for back of card
+  back_processed_image_url?: string | null; // Signed URL for back of card
   raw_ocr_text: string | null;
   ocr_output: OcrSegment[];
   extracted_data: ExtractedContactFields;
@@ -171,6 +173,8 @@ export interface Contact {
   contact_notes?: ContactNote[];
   original_image_url?: string | null;
   processed_image_url?: string | null;
+  back_original_image_url?: string | null;
+  back_processed_image_url?: string | null;
   scan_date?: string | null;
 }
 

@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "CardFlow | Smart Visiting Card Scanner & Contact CRM",
+  title: "Card Scanner'O' | Smart Visiting Card Scanner & Contact CRM",
   description:
     "Convert physical and digital visiting cards into structured, searchable digital contacts using locally hosted OpenCV and PaddleOCR.",
 };

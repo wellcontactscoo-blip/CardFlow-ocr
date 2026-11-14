@@ -283,14 +283,20 @@ export const api = {
     return request("/api/v1/dashboard/stats");
   },
 
-  // Single Card Scan
+  // Single Card Scan (Front + optional Back of Card)
   async uploadSingleCard(
     file: File,
-    rotationDegrees = 0
+    rotationDegrees = 0,
+    backFile?: File | null,
+    backRotationDegrees = 0
   ): Promise<CardScan> {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("rotation_degrees", String(rotationDegrees));
+    if (backFile) {
+      formData.append("back_file", backFile);
+      formData.append("back_rotation_degrees", String(backRotationDegrees));
+    }
     return request<CardScan>(
       "/api/v1/scans/single",
       {

@@ -703,6 +703,8 @@ def get_dashboard_stats(
 async def upload_and_scan_single_card(
     file: UploadFile = File(...),
     rotation_degrees: int = Form(0),
+    back_file: UploadFile | None = File(None),
+    back_rotation_degrees: int = Form(0),
     current_user: ProfileModel = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -717,6 +719,16 @@ async def upload_and_scan_single_card(
         raw_bytes,
     )
 
+    if back_file is not None and back_file.filename:
+        back_bytes, back_ext = await read_and_validate_upload(back_file)
+        save_to_private_bucket(
+            "visiting-cards-original",
+            current_user.id,
+            scan_id,
+            f"back_original{back_ext}",
+            back_bytes,
+        )
+
     scan = CardScanModel(
         id=scan_id,
         batch_id=None,
@@ -730,7 +742,10 @@ async def upload_and_scan_single_card(
 
     # Process single card scan in threadpool so event loop stays responsive
     await run_in_threadpool(
-        process_single_scan_job, scan_id, rotation_degrees=rotation_degrees
+        process_single_scan_job,
+        scan_id,
+        rotation_degrees=rotation_degrees,
+        back_rotation_degrees=back_rotation_degrees,
     )
 
     db.expire_all()

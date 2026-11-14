@@ -56,11 +56,18 @@ def recompute_batch_counts(db, batch_id: str | None) -> None:
     db.commit()
 
 
-def process_single_scan_job(scan_id: str, rotation_degrees: int = 0) -> None:
+def process_single_scan_job(
+    scan_id: str,
+    rotation_degrees: int = 0,
+    back_rotation_degrees: int = 0,
+) -> None:
     """
-    Execute OpenCV preprocessing + PaddleOCR + Hybrid Extraction for a single CardScanModel.
+    Execute OpenCV preprocessing + PaddleOCR + Hybrid Extraction for a single CardScanModel
+    (supporting both Front of Card and optional Back of Card images).
     Persists job state transitions: queued -> processing -> completed / review_required / failed.
     """
+    import cv2 as _cv2
+
     db = SessionLocal()
     try:
         scan = db.query(CardScanModel).filter(CardScanModel.id == scan_id).first()
@@ -80,23 +87,25 @@ def process_single_scan_job(scan_id: str, rotation_degrees: int = 0) -> None:
 
         raw_bytes = orig_abs_path.read_bytes()
 
-        # Step 1: OpenCV Preprocessing (preserves original image untouched)
+        # Step 1: OpenCV Preprocessing on Front of Card
         prep = preprocess_card_image(raw_bytes, rotation_degrees=rotation_degrees)
 
-        # Step 2: Local PaddleOCR Execution (auto-orients 90/180/270 deg cards upright)
+        # Step 2: Local PP-OCR Execution (auto-orients & crops to horizontal card area)
         ocr_service = OcrEngineService.get_instance()
         ocr_result = ocr_service.run_ocr(prep.processed_image)
 
         upright_img = ocr_result.get("upright_image")
         proc_jpeg = prep.processed_jpeg_bytes
-        if upright_img is not None and upright_img.shape[:2] != prep.processed_shape:
-            import cv2 as _cv2
-
+        if upright_img is not None:
             ok_enc, enc_buf = _cv2.imencode(
                 ".jpg", upright_img, [int(_cv2.IMWRITE_JPEG_QUALITY), 95]
             )
             if ok_enc:
                 proc_jpeg = enc_buf.tobytes()
+                # If the source photo was vertical or had excess table margins, update the saved
+                # original card image too so the viewer only displays the horizontal card area
+                if upright_img.shape[:2] != prep.original_shape:
+                    orig_abs_path.write_bytes(proc_jpeg)
 
         proc_rel_path = save_to_private_bucket(
             "visiting-cards-processed",
@@ -106,15 +115,62 @@ def process_single_scan_job(scan_id: str, rotation_degrees: int = 0) -> None:
             proc_jpeg,
         )
 
+        combined_segments = list(ocr_result["segments"])
+        combined_raw_text = ocr_result["raw_ocr_text"]
+
+        # Step 2B: Check for optional Back of Card image in the scan directory
+        scan_orig_dir = orig_abs_path.parent
+        back_candidates = sorted(scan_orig_dir.glob("back_original.*"))
+        if back_candidates:
+            back_abs_path = back_candidates[0]
+            back_bytes = back_abs_path.read_bytes()
+            back_prep = preprocess_card_image(
+                back_bytes, rotation_degrees=back_rotation_degrees
+            )
+            back_ocr = ocr_service.run_ocr(back_prep.processed_image)
+            back_upright = back_ocr.get("upright_image")
+            back_proc_jpeg = back_prep.processed_jpeg_bytes
+            if back_upright is not None:
+                ok_b, enc_b = _cv2.imencode(
+                    ".jpg", back_upright, [int(_cv2.IMWRITE_JPEG_QUALITY), 95]
+                )
+                if ok_b:
+                    back_proc_jpeg = enc_b.tobytes()
+                    if back_upright.shape[:2] != back_prep.original_shape:
+                        back_abs_path.write_bytes(back_proc_jpeg)
+
+            save_to_private_bucket(
+                "visiting-cards-processed",
+                scan.user_id,
+                scan.id,
+                "back_processed.jpg",
+                back_proc_jpeg,
+            )
+
+            offset = len(combined_segments)
+            for b_seg in back_ocr.get("segments", []):
+                combined_segments.append(
+                    {
+                        **b_seg,
+                        "reading_order": offset + int(b_seg.get("reading_order", 0)),
+                    }
+                )
+            if back_ocr.get("raw_ocr_text"):
+                combined_raw_text = (
+                    f"{combined_raw_text}\n--- BACK OF CARD ---\n{back_ocr['raw_ocr_text']}"
+                    if combined_raw_text
+                    else back_ocr["raw_ocr_text"]
+                )
+
         # Step 3: Hybrid Information Extraction & Separate Confidence Scoring
         extraction = extract_contact_from_ocr(
-            ocr_result["segments"],
+            combined_segments,
             image_shape=ocr_result.get("upright_shape", prep.processed_shape),
         )
 
         scan.processed_image_path = proc_rel_path
-        scan.raw_ocr_text = ocr_result["raw_ocr_text"]
-        scan.ocr_output = ocr_result["segments"]
+        scan.raw_ocr_text = combined_raw_text
+        scan.ocr_output = combined_segments
         scan.extracted_data = extraction["extracted_data"]
         scan.extraction_confidence = extraction["extraction_confidence"]
         scan.status = (

@@ -17,10 +17,15 @@ import {
   Square,
   SlidersHorizontal,
   Building2,
+  FileSpreadsheet,
+  ExternalLink,
+  Copy,
+  Send,
 } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { Button } from "@/components/ui/Button";
 import { EmptyState, Skeleton } from "@/components/ui/EmptyState";
+import { Modal } from "@/components/ui/Modal";
 import {
   EmailActionModal,
   WhatsAppActionModal,
@@ -29,6 +34,8 @@ import { api } from "@/lib/api";
 import {
   formatDateShort,
   generateContactsCsv,
+  generateContactsExcelXml,
+  generateContactsTsv,
   normalizePhoneForTel,
 } from "@/lib/utils";
 import { useToast } from "@/context/ToastContext";
@@ -61,6 +68,18 @@ export default function ContactsCrmPage() {
   // Communication Modals
   const [waContact, setWaContact] = useState<Contact | null>(null);
   const [emailContact, setEmailContact] = useState<Contact | null>(null);
+
+  // Google Sheets Export Modal
+  const [sheetsModalOpen, setSheetsModalOpen] = useState(false);
+  const [sheetsWebhookUrl, setSheetsWebhookUrl] = useState("");
+  const [isSyncingSheets, setIsSyncingSheets] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedUrl = window.localStorage.getItem("card_scanner_sheets_webhook_url");
+      if (savedUrl) setSheetsWebhookUrl(savedUrl);
+    }
+  }, []);
 
   const loadContacts = useCallback(async () => {
     setIsLoading(true);
@@ -211,7 +230,7 @@ export default function ContactsCrmPage() {
       const resAll = await api.listContacts({ page: 1, page_size: 1000 });
       triggerCsvDownload(
         resAll.items,
-        "cardflow-all-contacts",
+        "card-scanner-all-contacts",
         excelCompatible
       );
     } catch (err) {
@@ -219,6 +238,132 @@ export default function ContactsCrmPage() {
         "Export failed",
         err instanceof Error ? err.message : "Could not export contacts."
       );
+    }
+  };
+
+  const resolveExportItems = async (
+    mode: "all" | "filtered" | "selected"
+  ): Promise<Contact[]> => {
+    if (mode === "selected" && selectedContactIds.length > 0) {
+      return contacts.filter((c) => selectedContactIds.includes(c.id));
+    }
+    if (mode === "filtered") {
+      const res = await api.listContacts({
+        search: search.trim() || undefined,
+        tag_id: selectedTagId || undefined,
+        date_from: dateFrom || undefined,
+        date_to: dateTo || undefined,
+        sort_by: sortBy,
+        sort_dir: sortDir,
+        page: 1,
+        page_size: 1000,
+      });
+      return res.items;
+    }
+    const resAll = await api.listContacts({ page: 1, page_size: 1000 });
+    return resAll.items;
+  };
+
+  const handleExportExcelWorkbook = async (
+    mode: "all" | "filtered" | "selected" = "all"
+  ) => {
+    try {
+      const itemsToExport = await resolveExportItems(mode);
+      if (itemsToExport.length === 0) {
+        showError("No contacts to export", "No matching contacts found.");
+        return;
+      }
+      const xml = generateContactsExcelXml(itemsToExport);
+      const blob = new Blob([xml], {
+        type: "application/vnd.ms-excel;charset=utf-8;",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `card-scanner-contacts-${
+        new Date().toISOString().split("T")[0]
+      }.xls`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      success(
+        "Excel Workbook Downloaded",
+        `Exported ${itemsToExport.length} contact(s) to Microsoft Excel (.xls).`
+      );
+    } catch (err) {
+      showError(
+        "Excel Export Failed",
+        err instanceof Error ? err.message : "Could not export Excel workbook."
+      );
+    }
+  };
+
+  const handleCopyAndOpenGoogleSheets = async () => {
+    try {
+      const mode = selectedContactIds.length > 0 ? "selected" : "all";
+      const itemsToExport = await resolveExportItems(mode);
+      if (itemsToExport.length === 0) {
+        showError("No contacts to export", "No contacts found to copy.");
+        return;
+      }
+      const tsv = generateContactsTsv(itemsToExport);
+      await navigator.clipboard.writeText(tsv);
+      success(
+        "Copied for Google Sheets!",
+        `Copied ${itemsToExport.length} contact(s). Press Ctrl+V (or Cmd+V) in cell A1 of the new Google Sheet.`
+      );
+      window.open("https://sheets.new", "_blank", "noopener,noreferrer");
+    } catch (err) {
+      showError(
+        "Could not copy to clipboard",
+        err instanceof Error ? err.message : "Please try downloading Excel or CSV instead."
+      );
+    }
+  };
+
+  const handleSyncGoogleSheetsWebhook = async () => {
+    const trimmedUrl = sheetsWebhookUrl.trim();
+    if (!trimmedUrl) {
+      showError(
+        "Webhook URL Required",
+        "Paste your Google Apps Script Web App URL or use the Instant Copy & Open option above."
+      );
+      return;
+    }
+    setIsSyncingSheets(true);
+    try {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("card_scanner_sheets_webhook_url", trimmedUrl);
+      }
+      const mode = selectedContactIds.length > 0 ? "selected" : "all";
+      const itemsToExport = await resolveExportItems(mode);
+      if (itemsToExport.length === 0) {
+        showError("No contacts to sync", "No contacts available.");
+        return;
+      }
+      await fetch(trimmedUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          source: "Card Scanner'O'",
+          exported_at: new Date().toISOString(),
+          contacts: itemsToExport,
+        }),
+      });
+      success(
+        "Synced to Google Sheets",
+        `Sent ${itemsToExport.length} contact(s) to your Google Sheet webhook.`
+      );
+      setSheetsModalOpen(false);
+    } catch (err) {
+      showError(
+        "Google Sheets Sync Failed",
+        err instanceof Error ? err.message : "Could not reach Google Apps Script URL."
+      );
+    } finally {
+      setIsSyncingSheets(false);
     }
   };
 
@@ -246,7 +391,7 @@ export default function ContactsCrmPage() {
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => handleExport("selected", true)}
+                onClick={() => handleExportExcelWorkbook("selected")}
                 leftIcon={<Download className="w-3.5 h-3.5" />}
               >
                 Export Selected ({selectedContactIds.length})
@@ -263,10 +408,18 @@ export default function ContactsCrmPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => handleExport("all", true)}
-              leftIcon={<Download className="w-3.5 h-3.5 text-[#19C6B3]" />}
+              onClick={() => handleExportExcelWorkbook("all")}
+              leftIcon={<FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />}
             >
-              Excel CSV
+              Export Excel (.xls)
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSheetsModalOpen(true)}
+              leftIcon={<FileSpreadsheet className="w-3.5 h-3.5 text-[#12B5EA]" />}
+            >
+              Google Sheets
             </Button>
             <Link href="/scan" className="w-full sm:w-auto">
               <Button
@@ -805,6 +958,99 @@ export default function ContactsCrmPage() {
         isOpen={Boolean(emailContact)}
         onClose={() => setEmailContact(null)}
       />
+
+      <Modal
+        isOpen={sheetsModalOpen}
+        onClose={() => setSheetsModalOpen(false)}
+        title="Export Contacts to Google Sheets or Excel"
+      >
+        <div className="space-y-4">
+          {/* Option 1: Zero-API Instant Copy & Open */}
+          <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-900">
+                Option 1 • Instant Google Sheets (No API Needed)
+              </span>
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-600 text-white">
+                Recommended
+              </span>
+            </div>
+            <p className="text-xs text-emerald-900/90 leading-relaxed">
+              Copies all contacts in Google Sheets column format and opens a new
+              Google Sheet (<code className="font-mono">sheets.new</code>). Simply
+              press <strong>Ctrl + V</strong> in cell <strong>A1</strong>!
+            </p>
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleCopyAndOpenGoogleSheets}
+                leftIcon={<ExternalLink className="w-3.5 h-3.5 text-[#19C6B3]" />}
+              >
+                Copy Contacts & Open Google Sheets
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  handleExportExcelWorkbook("all");
+                  setSheetsModalOpen(false);
+                }}
+                leftIcon={<FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />}
+              >
+                Download Excel (.xls)
+              </Button>
+            </div>
+          </div>
+
+          {/* Option 2: Direct Webhook Sync via Free Google Apps Script */}
+          <div className="p-4 rounded-xl bg-[#F3F6FB] border border-[#DDE4F0] space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#101F50]">
+                Option 2 • 1-Click Direct Sync (Free Google Apps Script)
+              </span>
+              <button
+                type="button"
+                onClick={async () => {
+                  const scriptCode = `function doPost(e) {\n  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();\n  var data = JSON.parse(e.postData.contents);\n  if (sheet.getLastRow() === 0) {\n    sheet.appendRow(["Full Name", "Company", "Designation", "Phone", "Alternate Phone", "Email", "Website", "Address", "City", "State", "Postal Code", "Country"]);\n  }\n  (data.contacts || []).forEach(function(c) {\n    sheet.appendRow([c.full_name || "", c.company_name || "", c.designation || "", c.phone || "", c.alternate_phone || "", c.email || "", c.website || "", c.address || "", c.city || "", c.state || "", c.postal_code || "", c.country || ""]);\n  });\n  return ContentService.createTextOutput("OK");\n}`;
+                  await navigator.clipboard.writeText(scriptCode);
+                  success(
+                    "Apps Script Copied!",
+                    "In your Google Sheet: Extensions -> Apps Script -> Paste -> Deploy -> New deployment -> Web app (Anyone)."
+                  );
+                }}
+                className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#3478F6] hover:underline cursor-pointer"
+              >
+                <Copy className="w-3 h-3" />
+                Copy Free Apps Script
+              </button>
+            </div>
+            <p className="text-xs text-[#5A6782] leading-relaxed">
+              Want automatic 1-click push into a specific Google Sheet without
+              paying for Google Cloud OAuth APIs? Paste a free{" "}
+              <strong>Google Apps Script Web App URL</strong> below:
+            </p>
+            <input
+              type="url"
+              value={sheetsWebhookUrl}
+              onChange={(e) => setSheetsWebhookUrl(e.target.value)}
+              placeholder="https://script.google.com/macros/s/.../exec"
+              className="h-9 w-full rounded-xl border border-[#DDE4F0] bg-white px-3 text-xs text-[#202B42] focus:outline-none focus:ring-2 focus:ring-[#3478F6]"
+            />
+            <div className="flex justify-end">
+              <Button
+                variant="secondary"
+                size="sm"
+                isLoading={isSyncingSheets}
+                onClick={handleSyncGoogleSheetsWebhook}
+                leftIcon={<Send className="w-3.5 h-3.5" />}
+              >
+                Push Directly to Google Sheet
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </AppShell>
   );
 }

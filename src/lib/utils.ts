@@ -139,6 +139,170 @@ export function generateContactsCsv(
   return includeExcelBom ? `\uFEFF${csvBody}` : csvBody;
 }
 
+/**
+ * Convert an array of contacts into Tab-Separated Values (TSV) for 1-click Google Sheets paste
+ */
+export function generateContactsTsv(contacts: Contact[]): string {
+  const headers = [
+    "Name",
+    "Company",
+    "Designation",
+    "Phone",
+    "Alternate Phone",
+    "Email",
+    "Website",
+    "Address",
+    "City",
+    "State",
+    "PIN Code",
+    "Country",
+    "Education",
+    "LinkedIn",
+    "Tags",
+    "Notes",
+    "Date Added",
+  ];
+
+  const sanitizeTsvCell = (val: unknown): string => {
+    if (val === null || val === undefined) return "";
+    return String(val).replace(/[\t\r\n]+/g, " ").trim();
+  };
+
+  const rows = contacts.map((c) => {
+    const tagNames = (c.tags || []).map((t) => t.name).join(", ");
+    const combinedNotes = [
+      c.notes || "",
+      ...(c.contact_notes || []).map((n) => n.note),
+    ]
+      .filter(Boolean)
+      .join(" | ");
+
+    return [
+      c.full_name || [c.first_name, c.last_name].filter(Boolean).join(" "),
+      c.company_name,
+      c.designation,
+      c.phone,
+      c.alternate_phone,
+      c.email,
+      c.website,
+      c.address,
+      c.city,
+      c.state,
+      c.postal_code,
+      c.country,
+      c.education,
+      c.linkedin_url,
+      tagNames,
+      combinedNotes,
+      c.created_at ? new Date(c.created_at).toISOString().split("T")[0] : "",
+    ]
+      .map(sanitizeTsvCell)
+      .join("\t");
+  });
+
+  return [headers.join("\t"), ...rows].join("\n");
+}
+
+/**
+ * Generate a native Microsoft Excel XML Workbook (.xls) with styled header row
+ */
+export function generateContactsExcelXml(contacts: Contact[]): string {
+  const headers = [
+    "Name",
+    "Company",
+    "Designation",
+    "Phone",
+    "Alternate Phone",
+    "Email",
+    "Website",
+    "Address",
+    "City",
+    "State",
+    "PIN Code",
+    "Country",
+    "Education",
+    "LinkedIn",
+    "Tags",
+    "Notes",
+    "Date Added",
+  ];
+
+  const escXml = (v: unknown): string => {
+    if (v === null || v === undefined) return "";
+    return String(v)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  };
+
+  const headerCells = headers
+    .map(
+      (h) =>
+        `<Cell ss:StyleID="Header"><Data ss:Type="String">${escXml(h)}</Data></Cell>`
+    )
+    .join("");
+
+  const dataRows = contacts
+    .map((c) => {
+      const tagNames = (c.tags || []).map((t) => t.name).join(", ");
+      const combinedNotes = [
+        c.notes || "",
+        ...(c.contact_notes || []).map((n) => n.note),
+      ]
+        .filter(Boolean)
+        .join(" | ");
+
+      const cells = [
+        c.full_name || [c.first_name, c.last_name].filter(Boolean).join(" "),
+        c.company_name,
+        c.designation,
+        c.phone,
+        c.alternate_phone,
+        c.email,
+        c.website,
+        c.address,
+        c.city,
+        c.state,
+        c.postal_code,
+        c.country,
+        c.education,
+        c.linkedin_url,
+        tagNames,
+        combinedNotes,
+        c.created_at ? new Date(c.created_at).toISOString().split("T")[0] : "",
+      ]
+        .map(
+          (val) =>
+            `<Cell><Data ss:Type="String">${escXml(val)}</Data></Cell>`
+        )
+        .join("");
+
+      return `<Row>${cells}</Row>`;
+    })
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+ <Styles>
+  <Style ss:ID="Header">
+   <Font ss:Bold="1" ss:Color="#FFFFFF"/>
+   <Interior ss:Color="#101F50" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Contacts">
+  <Table>
+   <Row>${headerCells}</Row>
+   ${dataRows}
+  </Table>
+ </Worksheet>
+</Workbook>`;
+}
+
 export function formatConfidencePercentage(score: number | undefined): string {
   if (score === undefined || score === null || Number.isNaN(score)) return "N/A";
   return `${Math.round(score * 100)}%`;

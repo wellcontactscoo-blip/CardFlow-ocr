@@ -14,10 +14,10 @@ import {
   LogOut,
   Menu,
   X,
-  CreditCard,
   Building2,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -44,17 +44,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-[#101F50] text-white border-r border-[#1C3175] z-30">
         <div className="h-16 px-5 flex items-center gap-3 border-b border-white/10">
-          <div className="w-9 h-9 rounded-xl bg-[#19C6B3] text-[#101F50] flex items-center justify-center font-bold shadow-sm">
-            <CreditCard className="w-5 h-5" />
-          </div>
-          <div>
-            <span className="text-lg font-bold tracking-tight text-white block leading-none">
-              CardFlow
-            </span>
-            <span className="text-[11px] text-slate-300 block mt-0.5">
-              Smart Card OCR & CRM
-            </span>
-          </div>
+          <BrandLogo
+            variant="dark"
+            size="md"
+            subtitle="Smart Card OCR & CRM"
+          />
         </div>
 
         {organization && (
@@ -115,20 +109,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Mobile & Tablet Header */}
       <header className="lg:hidden sticky top-0 z-30 h-14 bg-[#101F50] text-white px-3.5 sm:px-5 flex items-center justify-between border-b border-white/10">
-        <Link href="/dashboard" className="flex items-center gap-2.5 min-w-0">
-          <div className="w-8 h-8 rounded-lg bg-[#19C6B3] text-[#101F50] flex items-center justify-center font-bold shrink-0">
-            <CreditCard className="w-4 h-4" />
-          </div>
-          <div className="min-w-0">
-            <span className="text-base font-bold tracking-tight block leading-none">
-              CardFlow
-            </span>
-            {organization && (
-              <span className="text-[10px] text-slate-300 truncate block max-w-[140px] sm:max-w-[220px]">
-                {organization.name}
-              </span>
-            )}
-          </div>
+        <Link href="/dashboard" className="flex items-center gap-2 min-w-0">
+          <BrandLogo
+            variant="dark"
+            size="sm"
+            subtitle={organization?.name}
+          />
         </Link>
         <div className="flex items-center gap-2">
           <Link

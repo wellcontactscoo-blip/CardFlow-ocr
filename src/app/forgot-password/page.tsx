@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CreditCard, ArrowLeft, KeyRound } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { api } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
 
@@ -39,11 +40,8 @@ export default function ForgotPasswordPage() {
   return (
     <div className="min-h-[100dvh] flex items-center justify-center p-6 bg-[#F3F6FB]">
       <div className="w-full max-w-md bg-white border border-[#DDE4F0] rounded-xl p-6 sm:p-8 shadow-xs">
-        <div className="flex items-center gap-2.5 mb-6">
-          <div className="w-9 h-9 rounded-xl bg-[#101F50] text-[#19C6B3] flex items-center justify-center font-bold">
-            <CreditCard className="w-5 h-5" />
-          </div>
-          <span className="text-lg font-bold text-[#101F50]">CardFlow</span>
+        <div className="mb-6">
+          <BrandLogo variant="light" size="md" />
         </div>
 
         <h1 className="text-xl font-bold text-[#101F50]">

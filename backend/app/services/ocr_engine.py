@@ -282,6 +282,10 @@ class OcrEngineService:
                         upright_image = out_img
 
         merged_items = _merge_same_line_segments(raw_items)
+        upright_image, merged_items = _crop_to_horizontal_card_region(
+            upright_image, merged_items
+        )
+        upright_shape = upright_image.shape[:2]
 
         segments: list[dict[str, Any]] = []
         for order_idx, item in enumerate(merged_items):
@@ -314,6 +318,127 @@ class OcrEngineService:
             "upright_shape": upright_shape,
             "upright_image": upright_image,
         }
+
+
+def _crop_to_horizontal_card_region(
+    image_bgr: np.ndarray, items: list[dict[str, Any]]
+) -> tuple[np.ndarray, list[dict[str, Any]]]:
+    """
+    Remove unwanted vertical/surrounding table background (such as top and bottom dead space
+    when a horizontal card is photographed in a vertical mobile frame) and keep only the
+    horizontal visiting card region containing all detected text segments.
+    """
+    if image_bgr is None or not items:
+        return image_bgr, items
+
+    img_h, img_w = image_bgr.shape[:2]
+    if img_h < 120 or img_w < 120:
+        return image_bgr, items
+
+    tx1 = min(int(it["bbox"][0]) for it in items)
+    ty1 = min(int(it["bbox"][1]) for it in items)
+    tx2 = max(int(it["bbox"][2]) for it in items)
+    ty2 = max(int(it["bbox"][3]) for it in items)
+
+    text_w = max(1, tx2 - tx1)
+    text_h = max(1, ty2 - ty1)
+
+    # Check if there is unwanted vertical/horizontal background around the card
+    is_vertical_frame = img_h > int(0.84 * img_w)
+    has_excess_vertical_space = text_h < int(0.68 * img_h)
+    has_excess_horizontal_space = text_w < int(0.72 * img_w)
+
+    if not (
+        is_vertical_frame
+        or has_excess_vertical_space
+        or has_excess_horizontal_space
+    ):
+        return image_bgr, items
+
+    # 1. Try OpenCV contour detection for a horizontal card rectangle enclosing [tx1, ty1, tx2, ty2]
+    crop_box: tuple[int, int, int, int] | None = None
+    try:
+        gray = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY)
+        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+        edged = cv2.Canny(blurred, 40, 140)
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7))
+        closed = cv2.morphologyEx(edged, cv2.MORPH_CLOSE, kernel)
+        contours, _ = cv2.findContours(
+            closed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+        )
+        best_area = img_w * img_h
+        for cnt in contours:
+            rx, ry, rw, rh = cv2.boundingRect(cnt)
+            area = rw * rh
+            if area < 0.12 * (img_w * img_h) or area > 0.88 * (img_w * img_h):
+                continue
+            aspect = float(rw) / float(max(rh, 1))
+            if not (1.18 <= aspect <= 2.35):
+                continue
+            # Must enclose the detected text block (with small tolerance)
+            if (
+                rx <= tx1 + 24
+                and ry <= ty1 + 24
+                and (rx + rw) >= tx2 - 24
+                and (ry + rh) >= ty2 - 24
+            ):
+                if area < best_area:
+                    best_area = area
+                    pad = 8
+                    crop_box = (
+                        max(0, min(rx - pad, tx1 - 12)),
+                        max(0, min(ry - pad, ty1 - 12)),
+                        min(img_w, max(rx + rw + pad, tx2 + 12)),
+                        min(img_h, max(ry + rh + pad, ty2 + 12)),
+                    )
+    except Exception:
+        crop_box = None
+
+    # 2. Fallback: Tight horizontal card crop (1.72:1 aspect ratio) centered around the OCR text union
+    if crop_box is None:
+        pad_x = max(18, int(round(0.085 * max(text_w, int(0.65 * img_w)))))
+        cx1 = max(0, tx1 - pad_x)
+        cx2 = min(img_w, tx2 + pad_x)
+        card_w = max(1, cx2 - cx1)
+
+        # Ensure standard horizontal visiting card proportion around the text block
+        min_card_h = int(round(text_h * 1.34))
+        aspect_card_h = int(round(card_w / 1.72))
+        target_h = max(min_card_h, min(aspect_card_h, int(round(text_h * 1.85))))
+
+        cy_mid = 0.5 * (ty1 + ty2)
+        cy1 = max(0, min(ty1 - 16, int(round(cy_mid - 0.5 * target_h))))
+        cy2 = min(img_h, max(ty2 + 16, int(round(cy_mid + 0.5 * target_h))))
+        crop_box = (cx1, cy1, cx2, cy2)
+
+    cx1, cy1, cx2, cy2 = crop_box
+    if (cx2 - cx1) < 100 or (cy2 - cy1) < 60:
+        return image_bgr, items
+    if cx1 == 0 and cy1 == 0 and cx2 == img_w and cy2 == img_h:
+        return image_bgr, items
+
+    cropped_img = image_bgr[cy1:cy2, cx1:cx2].copy()
+    shifted_items: list[dict[str, Any]] = []
+    for it in items:
+        bx1, by1, bx2, by2 = it["bbox"]
+        new_bbox = [
+            max(0, bx1 - cx1),
+            max(0, by1 - cy1),
+            max(0, bx2 - cx1),
+            max(0, by2 - cy1),
+        ]
+        new_poly = [
+            [max(0, p[0] - cx1), max(0, p[1] - cy1)] for p in it["polygon"]
+        ]
+        shifted_items.append(
+            {
+                **it,
+                "bbox": new_bbox,
+                "polygon": new_poly,
+            }
+        )
+
+    return cropped_img, shifted_items
 
 
 

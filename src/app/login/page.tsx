@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { CreditCard, ShieldCheck, Layers, Cpu, KeyRound } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { api } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
 import { useAuth } from "@/context/AuthContext";
@@ -59,18 +60,12 @@ export default function LoginPage() {
     <div className="min-h-[100dvh] grid grid-cols-1 lg:grid-cols-12 bg-[#F3F6FB]">
       {/* Left Brand Panel */}
       <div className="hidden lg:flex lg:col-span-5 bg-[#101F50] text-white p-10 flex-col justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#19C6B3] text-[#101F50] flex items-center justify-center font-bold">
-            <CreditCard className="w-5 h-5" />
-          </div>
-          <div>
-            <span className="text-xl font-bold tracking-tight block leading-none">
-              CardFlow
-            </span>
-            <span className="text-xs text-slate-300 mt-1 block">
-              Visiting Card OCR & Contact CRM
-            </span>
-          </div>
+        <div>
+          <BrandLogo
+            variant="dark"
+            size="lg"
+            subtitle="Visiting Card OCR & Contact CRM"
+          />
         </div>
 
         <div className="space-y-6 my-auto py-12">
@@ -128,17 +123,14 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="text-xs text-slate-400">CardFlow Workspace Platform</p>
+        <p className="text-xs text-slate-400">Card Scanner&apos;O&apos; Workspace Platform</p>
       </div>
 
       {/* Right Form Panel */}
       <div className="lg:col-span-7 flex items-center justify-center p-4 sm:p-10">
         <div className="w-full max-w-md bg-white border border-[#DDE4F0] rounded-xl p-5 sm:p-8 shadow-xs">
           <div className="flex lg:hidden items-center gap-2.5 mb-5">
-            <div className="w-9 h-9 rounded-xl bg-[#101F50] text-[#19C6B3] flex items-center justify-center font-bold">
-              <CreditCard className="w-5 h-5" />
-            </div>
-            <span className="text-lg font-bold text-[#101F50]">CardFlow</span>
+            <BrandLogo variant="light" size="md" />
           </div>
 
           <h2 className="text-xl font-bold text-[#101F50]">

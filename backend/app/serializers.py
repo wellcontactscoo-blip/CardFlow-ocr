@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Any
 from sqlalchemy.orm import Session
 
+from .config import ORIGINAL_BUCKET_DIR, PROCESSED_BUCKET_DIR
 from .database import (
     CardScanModel,
     ContactModel,
@@ -14,6 +15,25 @@ from .database import (
 )
 from .services.duplicates import find_duplicate_contacts
 from .storage import create_signed_url
+
+
+def _resolve_back_image_urls(user_id: str, scan_id: str) -> tuple[str | None, str | None]:
+    """Return signed URLs (back_original_image_url, back_processed_image_url) if a back card exists."""
+    back_orig_url: str | None = None
+    back_proc_url: str | None = None
+    orig_dir = ORIGINAL_BUCKET_DIR / user_id / scan_id
+    if orig_dir.exists():
+        matches = sorted(orig_dir.glob("back_original.*"))
+        if matches:
+            rel = f"{user_id}/{scan_id}/{matches[0].name}"
+            back_orig_url = create_signed_url("visiting-cards-original", rel, user_id)
+
+    proc_file = PROCESSED_BUCKET_DIR / user_id / scan_id / "back_processed.jpg"
+    if proc_file.exists():
+        rel_proc = f"{user_id}/{scan_id}/back_processed.jpg"
+        back_proc_url = create_signed_url("visiting-cards-processed", rel_proc, user_id)
+
+    return back_orig_url, back_proc_url
 
 
 def iso(dt: datetime | None) -> str | None:
@@ -100,6 +120,8 @@ def serialize_contact(
     notes_list: list[dict[str, Any]] = []
     orig_url: str | None = None
     proc_url: str | None = None
+    back_orig_url: str | None = None
+    back_proc_url: str | None = None
     scan_date: str | None = None
 
     if include_details:
@@ -130,6 +152,9 @@ def serialize_contact(
                     "visiting-cards-processed",
                     scan.processed_image_path,
                     c.user_id,
+                )
+                back_orig_url, back_proc_url = _resolve_back_image_urls(
+                    c.user_id, scan.id
                 )
                 scan_date = iso(scan.created_at)
 
@@ -162,6 +187,8 @@ def serialize_contact(
         "contact_notes": notes_list,
         "original_image_url": orig_url,
         "processed_image_url": proc_url,
+        "back_original_image_url": back_orig_url,
+        "back_processed_image_url": back_proc_url,
         "scan_date": scan_date,
     }
 
@@ -199,6 +226,8 @@ def serialize_scan(
             for d in raw_dups
         ]
 
+    back_orig_url, back_proc_url = _resolve_back_image_urls(s.user_id, s.id)
+
     return {
         "id": s.id,
         "batch_id": s.batch_id,
@@ -212,6 +241,8 @@ def serialize_scan(
         "processed_image_url": create_signed_url(
             "visiting-cards-processed", s.processed_image_path, s.user_id
         ),
+        "back_original_image_url": back_orig_url,
+        "back_processed_image_url": back_proc_url,
         "raw_ocr_text": s.raw_ocr_text,
         "ocr_output": s.ocr_output or [],
         "extracted_data": s.extracted_data or {},

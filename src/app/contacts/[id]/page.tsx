@@ -42,6 +42,7 @@ export default function ContactDetailPage() {
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
   const [newNoteText, setNewNoteText] = useState("");
   const [showProcessedCard, setShowProcessedCard] = useState(false);
+  const [activeCardSide, setActiveCardSide] = useState<"front" | "back">("front");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -205,9 +206,17 @@ export default function ContactDetailPage() {
   const telHref = normalizePhoneForTel(
     contact.phone || contact.alternate_phone
   );
-  const cardImgUrl = showProcessedCard
-    ? contact.processed_image_url || contact.original_image_url
-    : contact.original_image_url;
+  const hasBackImage = Boolean(
+    contact.back_original_image_url || contact.back_processed_image_url
+  );
+  const cardImgUrl =
+    activeCardSide === "back" && hasBackImage
+      ? showProcessedCard
+        ? contact.back_processed_image_url || contact.back_original_image_url
+        : contact.back_original_image_url || contact.back_processed_image_url
+      : showProcessedCard
+        ? contact.processed_image_url || contact.original_image_url
+        : contact.original_image_url;
 
   return (
     <AppShell>
@@ -287,11 +296,39 @@ export default function ContactDetailPage() {
           <div className="lg:col-span-5 space-y-6">
             {/* Original Visiting Card Image */}
             <div className="bg-white border border-[#DDE4F0] rounded-xl p-5 space-y-3">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-[#101F50]">
-                  Visiting Card Image
-                </h2>
-                {contact.processed_image_url && (
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-sm font-semibold text-[#101F50]">
+                    Visiting Card Image
+                  </h2>
+                  {hasBackImage && (
+                    <div className="inline-flex items-center gap-1 bg-[#F3F6FB] p-0.5 rounded-lg border border-[#DDE4F0]">
+                      <button
+                        type="button"
+                        onClick={() => setActiveCardSide("front")}
+                        className={`px-2 py-0.5 rounded-md text-[11px] font-semibold transition-colors cursor-pointer ${
+                          activeCardSide === "front"
+                            ? "bg-[#12B5EA] text-white"
+                            : "text-[#5A6782] hover:text-[#101F50]"
+                        }`}
+                      >
+                        Front
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setActiveCardSide("back")}
+                        className={`px-2 py-0.5 rounded-md text-[11px] font-semibold transition-colors cursor-pointer ${
+                          activeCardSide === "back"
+                            ? "bg-[#12B5EA] text-white"
+                            : "text-[#5A6782] hover:text-[#101F50]"
+                        }`}
+                      >
+                        Back
+                      </button>
+                    </div>
+                  )}
+                </div>
+                {(contact.processed_image_url || contact.back_processed_image_url) && (
                   <button
                     type="button"
                     onClick={() => setShowProcessedCard((v) => !v)}
@@ -302,13 +339,13 @@ export default function ContactDetailPage() {
                 )}
               </div>
 
-              <div className="bg-[#F3F6FB] border border-[#DDE4F0] rounded-xl p-3 flex items-center justify-center min-h-[200px] overflow-hidden">
+              <div className="relative w-full aspect-[1.72/1] bg-[#F3F6FB] border-2 border-emerald-500/80 rounded-xl p-1.5 flex items-center justify-center overflow-hidden">
                 {cardImgUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={cardImgUrl}
-                    alt={`Visiting card for ${contact.full_name || "contact"}`}
-                    className="max-h-64 w-auto object-contain rounded-lg shadow-xs"
+                    alt={`Visiting card for ${contact.full_name || "contact"} (${activeCardSide})`}
+                    className="w-full h-full object-contain rounded-lg"
                   />
                 ) : (
                   <p className="text-xs text-[#5A6782]">
