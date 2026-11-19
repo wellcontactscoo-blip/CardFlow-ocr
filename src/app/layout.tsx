@@ -26,6 +26,17 @@ export const metadata: Metadata = {
   title: "Card Scanner'O' | Smart Visiting Card Scanner & Contact CRM",
   description:
     "Convert physical and digital visiting cards into structured, searchable digital contacts using locally hosted OpenCV and PaddleOCR.",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Rounded square navy badge so the cyan scanner mark has high contrast on both light and dark browser tabs -->
+  <rect width="64" height="64" rx="14" fill="#0B132B"/>
+  <!-- Cyan horizontal visiting card body -->
+  <rect x="8" y="16" width="48" height="32" rx="3" fill="#12B5EA"/>
+  <!-- Center horizontal scan line -->
+  <line x1="19" y1="32" x2="45" y2="32" stroke="#0B132B" stroke-width="3.6" stroke-linecap="round"/>
+  <!-- Top-Left corner scanner bracket -->
+  <path d="M12 24V13H23" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="square"/>
+  <!-- Top-Right corner scanner bracket -->
+  <path d="M41 13H52V24" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="square"/>
+  <!-- Bottom-Left corner scanner bracket -->
+  <path d="M12 40V51H23" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="square"/>
+  <!-- Bottom-Right corner scanner bracket -->
+  <path d="M41 51H52V40" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="square"/>
+</svg>
